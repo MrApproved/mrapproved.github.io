@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="menu-window top">
+        <h1>Menu - </h1>
+        <div id="maps-window">
+            <label>Maps</label>
+            <select id="maps"></select>
+            <label>Scenarios</label>
+            <select id="scenarios"></select>
+            <label>Speed run mode</label>
+            <input type="checkbox" id="speed-run-mode"></select>
+        </div>
+    </div>
+    <div id="window-container">
+        <div class="optional-window">
+            <h1>Rooms</h1>
+            <div class="expander">^</div>
+            <div id="map-rooms-window" class="limitied-height content">
+            </div>
+        </div>
+        <div class="optional-window">
+            <h1>Enemies</h1>
+            <div class="expander">^</div>
+            <div id="map-enemies-window" class="limitied-height content">
+            </div>
+        </div>
+        <div class="optional-window">
+            <h1>Objects</h1>
+            <div class="expander">^</div>
+            <div id="map-objects-window" class="limitied-height content">
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        Created By Ben Watts. Licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </div>
+</body>
+
+<script src="src/position.js"></script>
+<script src="src/maps/maps.js"></script>
+<script src="src/maps/scenarios/F1_1.js"></script>
+<script src="src/mapDrawer.js"></script>
+<script src="src/mapSelector.js"></script>
+<script src="src/scenarioSelector.js"></script>
+<script src="src/waveSelector.js"></script>
+<script src="src/enemiesInfo.js"></script>
+<script src="src/roomManager.js"></script>
+<script src="src/objectsManager.js"></script>
+<script src="src/toggleManager.js"></script>
+<script src="app.js"></script>
+
+</html>

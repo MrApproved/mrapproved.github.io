@@ -1,0 +1,19 @@
+1: Display door switches - DONE
+2: Display laser switches - DONE
+3: Display laser - DONE
+4: Traps - DONE
+5: Display floor buttons - DONE
+6: Display boxes - DONE
+7: Display optional wave - DONE
+8: Display wave spawn line - DONE
+. Display simutanous waves (A and B) - DONE
+Create key window which can be toggled on and off like enemies and rooms - DONE
+Allow specific object types to be toggled on and off globally (being specific will bloat the UI) - DONE
+. Allow waves to be toggled on and off - DONE 
+. Allow waves to be toggled on and off globally - DONE
+Objects can override settings like colour, outlineColour, size etc
+Create an object that is 4 boxes are together
+Display basic route for speed run
+Implement speed run mode (only enable necessary objects and waves)
+Zoom should fit the entire map on load
+

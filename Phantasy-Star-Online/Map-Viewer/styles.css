@@ -1,0 +1,118 @@
+body {
+    margin: unset;
+    padding: unset;
+    color: #fff;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+h1 {
+    display: inline;
+    font-size: 1.2em;
+    font-weight: 100;
+}
+
+.menu-window {
+    background-color: rgba(46, 106, 209, 0.5);
+    border-radius: 3px;
+}
+
+.menu-window.top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 22px;
+    padding: 9px;
+}
+
+#maps-window {
+    display: inline;
+}
+
+#window-container {
+    position: fixed;
+    top: 40px;
+    right: 0;
+    width: 300px;
+    height: calc(100vh - 40px);
+    background-color: rgba(46, 106, 209, 0.25);
+    overflow: auto;
+}
+
+#window-container .optional-window {
+    padding: 9px;
+}
+
+#window-container .optional-window .expander {
+    cursor: pointer;
+    display: inline-block;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    font-size: 1.2em;
+}
+
+#window-container .optional-window.hide .expander {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+#window-container .optional-window.hide .content {
+    display: none;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: right;
+    gap: 9px;
+}
+
+.content {
+    border-radius: 3px;
+    padding: 3px;
+    background-color: rgba(46, 106, 209, 0.25);
+}
+
+.limitied-height {
+    max-height: 30vh;
+    overflow: auto;
+}
+
+#map-rooms-window.limitied-height {
+    max-height: 50vh;
+}
+
+#map-rooms-window .wave-contents {
+    margin-left: 9px;
+}
+
+#map-rooms-window .encounter-contents {
+    margin-left: 9px;
+}
+
+.toggle-slider {
+    overflow: hidden;
+}
+
+.toggle-slider.hide {
+    display: none;
+}
+
+#footer {
+    position: fixed;
+    font-size: 0.7em;
+    padding: 3px;
+    background-color: rgba(46, 106, 209, 0.25);
+    bottom: 0;
+    left: 0;
+}
+
+#footer a {
+    color: steelblue;
+}
