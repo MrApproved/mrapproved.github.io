@@ -13,11 +13,13 @@ class ObjectsManager {
                 type: "start",
                 shape: "triangle",
                 colour: "skyblue",
+                size: 32,
             },
             {
                 type: "finish",
                 shape: "triangle",
                 colour: "orangered",
+                size: 32,
             },
             {
                 type: "item_box",

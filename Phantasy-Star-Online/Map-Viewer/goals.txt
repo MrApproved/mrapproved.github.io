@@ -16,4 +16,5 @@ Create an object that is 4 boxes are together
 Display basic route for speed run
 Implement speed run mode (only enable necessary objects and waves)
 Zoom should fit the entire map on load
+Allow placing of markers in a console window which can then be copied into the map structure file
 

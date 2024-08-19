@@ -31,6 +31,6 @@ setInterval(function () {
     draw();
 }, 1000 / 60);
 
-mapDrawer.init(canvas);
+mapDrawer.init(canvas, true);
 mapDrawer.setObjectsManager(objectsManagers);
 mapSelector.init(maps);

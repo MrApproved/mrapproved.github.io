@@ -59,16 +59,49 @@ class MapDrawer {
         });
 
         self.canvas.addEventListener("mouseup", function (event) {
-            var x = event.pageX - (self.canvas.width - 300) / 2;
-            var y = event.pageY - self.canvas.height / 2;
+            var x = Math.round(
+                (event.pageX - (self.canvas.width - 300) / 2) / self.zoom
+            );
+            var y = Math.round(
+                (event.pageY - self.canvas.height / 2) / self.zoom
+            );
 
-            console.log({
-                type: "item_box",
-                position: {
-                    x: x,
-                    y: y,
-                },
-            });
+            var mapDrawerWriter = document.getElementById("map-drawer-writer");
+            var mapDrawerWriterDiv = document.createElement("div");
+            var mapDrawerWriterSelect = document.getElementById(
+                "map-drawer-writer-select"
+            );
+            var mapDrawerWriterOutput =
+                mapDrawerWriter.getElementsByClassName("output")[0];
+            var selectedValue =
+                mapDrawerWriterSelect.options[
+                    mapDrawerWriterSelect.selectedIndex
+                ].text;
+            var objectProperty = "type";
+
+            if (self.getEnemy(self.map.enemies, selectedValue) !== undefined)
+                objectProperty = "name";
+            var newObject = {};
+            newObject[objectProperty] = selectedValue;
+            (newObject.position = {
+                x: x,
+                y: y,
+            }),
+                (mapDrawerWriterDiv.innerHTML = `${JSON.stringify(
+                    newObject
+                ).replace(/"([^"]+)":/g, "$1:")},`);
+
+            mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
+        });
+
+        var clearMapDrawerWrtier = document
+            .getElementById("map-drawer-writer")
+            .getElementsByTagName("button");
+        clearMapDrawerWrtier[0].addEventListener("click", () => {
+            var mapDrawerWriterOutput = document
+                .getElementById("map-drawer-writer")
+                .getElementsByClassName("output")[0];
+            mapDrawerWriterOutput.innerHTML = "";
         });
     }
 
@@ -78,6 +111,22 @@ class MapDrawer {
 
     setMap(map) {
         this.map = map;
+
+        var mapDrawerWriterSelect = document.getElementById(
+            "map-drawer-writer-select"
+        );
+
+        this.map.enemies.forEach((enemy) => {
+            var option = document.createElement("option");
+            option.text = option.value = enemy.name;
+            mapDrawerWriterSelect.add(option);
+        });
+
+        this.objectsManager.objects.forEach((object) => {
+            var option = document.createElement("option");
+            option.text = option.value = object.type;
+            mapDrawerWriterSelect.add(option);
+        });
     }
 
     setScenario(scenario) {
@@ -178,7 +227,7 @@ class MapDrawer {
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].name === name) return enemies[i];
         }
-        return null;
+        return undefined;
     }
 
     calculateCentreOffset(length) {
@@ -206,7 +255,12 @@ class MapDrawer {
                     mapObject.fontSize
                 );
             else if (mapObject.shape === "triangle")
-                this.drawTriangle(ctx, object.position, mapObject.colour);
+                this.drawTriangle(
+                    ctx,
+                    object.position,
+                    mapObject.colour,
+                    mapObject.size
+                );
             else if (mapObject.shape === "circle")
                 this.drawCircle(
                     ctx,
@@ -268,17 +322,29 @@ class MapDrawer {
         ctx.stroke();
     }
 
+    // https://stackoverflow.com/questions/8935930/create-equilateral-triangle-in-the-middle-of-canvas
     drawTriangle(ctx, position, colour, size) {
         ctx.fillStyle = colour;
-        ctx.beginPath();
 
         var xPos = this.position.x + position.x * this.zoom;
         var yPos = this.position.y + position.y * this.zoom;
 
-        ctx.moveTo(xPos + 115 * this.zoom, yPos + 50 * this.zoom);
-        ctx.lineTo(xPos + 100 * this.zoom, yPos + 25 * this.zoom);
-        ctx.lineTo(xPos + 85 * this.zoom, yPos + 50 * this.zoom);
+        var h = size * (Math.sqrt(3) / 2);
+
+        ctx.beginPath();
+        ctx.save();
+        ctx.translate(xPos, yPos);
+        ctx.moveTo(0, -h / 2);
+        ctx.lineTo(-size / 2, h / 2);
+        ctx.lineTo(size / 2, h / 2);
+        ctx.lineTo(0, -h / 2);
+
+        ctx.stroke();
         ctx.fill();
+
+        ctx.closePath();
+
+        ctx.restore();
     }
 
     drawSqaure(ctx, position, colour, borderColour = "#222", baseSize = 16) {

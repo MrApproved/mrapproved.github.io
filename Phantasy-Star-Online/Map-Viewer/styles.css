@@ -104,6 +104,42 @@ h1 {
     display: none;
 }
 
+#map-drawer-writer {
+    position: fixed;
+    bottom: 20px;
+    width: 632px;
+    background-color: rgba(46, 106, 209, 0.5);
+}
+
+#map-drawer-writer select {
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+
+#map-drawer-writer button {
+    position: absolute;
+    height: 32px;
+    bottom: 0;
+    right: 20px;
+}
+
+#map-drawer-writer div {
+    font-size: 18px;
+    height: 18px;
+    -webkit-touch-callout: text; /* iOS Safari */
+    -webkit-user-select: text; /* Safari */
+    -khtml-user-select: text; /* Konqueror HTML */
+    -moz-user-select: text; /* Old versions of Firefox */
+    -ms-user-select: text; /* Internet Explorer/Edge */
+    user-select: text; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+#map-drawer-writer .output {
+    overflow: auto;
+    height: 140px;
+}
+
 #footer {
     position: fixed;
     font-size: 0.7em;

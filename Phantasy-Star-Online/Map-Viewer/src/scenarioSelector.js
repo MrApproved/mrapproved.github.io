@@ -24,6 +24,12 @@ class ScenarioSelector {
             option.text = self.scenarios[i].name;
             option.value = i;
             scenariosDownDrop.add(option, i);
+
+            if (
+                self.scenarios[i].selected !== undefined &&
+                self.scenarios[i].selected
+            )
+                scenariosDownDrop.value = i;
         }
 
         scenariosDownDrop.dispatchEvent(new Event("change"));

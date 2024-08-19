@@ -17,11 +17,6 @@ maps.forEach((map) => {
                         },
                         {
                             type: "label",
-                            value: "0",
-                            position: { x: 0, y: 0 },
-                        },
-                        {
-                            type: "label",
                             value: "4",
                             position: { x: -260, y: -300 },
                         },
@@ -369,7 +364,7 @@ maps.forEach((map) => {
                             value: "5",
                             position: { x: -10, y: -160 },
                         },
-                        { type: "finish", position: { x: -20, y: -60 } },
+                        { type: "finish", position: { x: 70, y: -40 } },
                         { type: "item_box", position: { x: 40, y: -180 } },
                         { type: "item_box", position: { x: 45, y: -185 } },
                         { type: "item_box", position: { x: 50, y: -175 } },
@@ -555,7 +550,7 @@ maps.forEach((map) => {
                     src: "assets/maps/forest/F1_R6.png",
                     required: true,
                     objects: [
-                        { type: "start", position: { x: -100, y: -30 } },
+                        { type: "start", position: { x: 0, y: 0 } },
                         { type: "door_switch", position: { x: -70, y: 40 } },
                         {
                             type: "door_switch",
