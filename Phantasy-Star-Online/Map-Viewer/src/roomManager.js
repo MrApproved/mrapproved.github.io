@@ -10,6 +10,7 @@ class RoomManager {
         var self = this;
         self.rooms = self.sortRoomsByOrder(rooms);
         var roomsEle = document.getElementById("map-rooms-window");
+        roomsEle.innerHTML = "";
 
         self.rooms.forEach((room) => {
             //if (room.order !== undefined)

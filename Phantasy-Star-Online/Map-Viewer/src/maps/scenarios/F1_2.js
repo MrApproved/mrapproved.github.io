@@ -7,6 +7,79 @@ maps.forEach((map) => {
             rooms: [
                 {
                     src: "assets/maps/forest/F1_R1.png",
+                    order: 9,
+                    objects: [
+                        { type: "capsule", position: { x: -248, y: -241 } },
+                        {
+                            type: "laser_switch",
+                            position: { x: -333, y: -276 },
+                            colour: "violet",
+                        },
+                        {
+                            type: "laser",
+                            position: { x: -313, y: -285 },
+                            positionOffset: { x: -270, y: -285 },
+                            colour: "violet",
+                        },
+                        { type: "item_box", position: { x: -309, y: -306 } },
+                        { type: "item_box", position: { x: -309, y: -323 } },
+                        { type: "item_box", position: { x: -289, y: -325 } },
+                        { type: "item_box", position: { x: -289, y: -306 } },
+                        { type: "item_box", position: { x: -199, y: -299 } },
+                        { type: "item_box", position: { x: -189, y: -301 } },
+                        { type: "item_box", position: { x: -116, y: -288 } },
+                        { type: "item_box", position: { x: -115, y: -275 } },
+                        {
+                            type: "door_switch",
+                            position: { x: -113, y: -222 },
+                            colour: "aqua",
+                        },
+                        { type: "finish", position: { x: -168, y: -186 } },
+                        { type: "capsule", position: { x: -127, y: -194 } },
+                        {
+                            type: "label",
+                            position: { x: -85, y: -272 },
+                            value: "9",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            optional: true,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -204, y: -252 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            order: 1,
+                            id: "B",
+                            optional: true,
+                            spawnBox: {
+                                position: { x: -190, y: -210 },
+                                size: { x: 45, y: 45 },
+                            },
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: -151, y: -220 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R2.png",
@@ -72,6 +145,64 @@ maps.forEach((map) => {
                 },
                 {
                     src: "assets/maps/forest/F1_R3.png",
+                    order: 3,
+                    objects: [
+                        { type: "item_box", position: { x: 179, y: -27 } },
+                        { type: "item_box", position: { x: 174, y: -19 } },
+                        { type: "item_box", position: { x: 169, y: -5 } },
+                        { type: "item_box", position: { x: 78, y: -7 } },
+                        { type: "item_box", position: { x: 72, y: -20 } },
+                        { type: "item_box", position: { x: 65, y: -32 } },
+                        { type: "capsule", position: { x: 130, y: 14 } },
+                        {
+                            type: "label",
+                            position: { x: 154, y: -117 },
+                            value: "3",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 123, y: -138 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Rag Rappy",
+                                            position: { x: 82, y: -114 },
+                                        },
+                                        {
+                                            name: "Rag Rappy",
+                                            position: { x: 41, y: -65 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 131, y: -6 },
+                                        },
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 155, y: 4 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R4.png",
@@ -113,21 +244,314 @@ maps.forEach((map) => {
                 },
                 {
                     src: "assets/maps/forest/F1_R5.png",
+                    order: 8,
+                    objects: [
+                        { type: "item_box", position: { x: -315, y: -141 } },
+                        { type: "item_box", position: { x: -319, y: -130 } },
+                        {
+                            type: "special_item_box",
+                            position: { x: -213, y: -92 },
+                        },
+                        {
+                            type: "special_item_box",
+                            position: { x: -210, y: -79 },
+                        },
+                        {
+                            type: "laser",
+                            position: { x: -227, y: -98 },
+                            positionOffset: { x: -227, y: -68 },
+                            colour: "aqua",
+                        },
+                        {
+                            type: "laser_switch",
+                            position: { x: -332, y: -56 },
+                            colour: "aqua",
+                        },
+                        {
+                            type: "label",
+                            position: { x: -365, y: -36 },
+                            value: "8",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Monest",
+                                            position: { x: -303, y: 4 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: -369, y: -9 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: -366, y: 16 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: -275, y: -99 },
+                                        },
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: { x: -259, y: -66 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -255, y: -14 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: -256, y: -46 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: -276, y: -74 },
+                                        },
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: -284, y: -104 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R6.png",
+                    order: 6,
+                    objects: [
+                        { type: "item_box", position: { x: -12, y: 100 } },
+                        { type: "item_box", position: { x: -2, y: 88 } },
+                        { type: "item_box", position: { x: 14, y: -2 } },
+                        { type: "item_box", position: { x: 6, y: -8 } },
+                        { type: "item_box", position: { x: -3, y: -13 } },
+                        {
+                            type: "label",
+                            position: { x: -59, y: -18 },
+                            value: "6",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -25, y: 84 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: -52, y: 66 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -25, y: 50 },
+                                        },
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: -47, y: 41 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -73, y: 87 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R7.png",
+                    order: 7,
+                    objects: [
+                        { type: "capsule", position: { x: -141, y: 54 } },
+                        { type: "capsule", position: { x: -199, y: 220 } },
+                        {
+                            type: "laser_switch",
+                            position: { x: -227, y: 293 },
+                            colour: "red",
+                        },
+                        {
+                            type: "laser",
+                            position: { x: -240, y: 250 },
+                            positionOffset: { x: -240, y: 282 },
+                            colour: "red",
+                        },
+                        { type: "item_box", position: { x: -270, y: 253 } },
+                        { type: "item_box", position: { x: -260, y: 253 } },
+                        { type: "item_box", position: { x: -260, y: 266 } },
+                        { type: "item_box", position: { x: -270, y: 266 } },
+                        {
+                            type: "label",
+                            position: { x: -215, y: 158 },
+                            value: "7",
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R8.png",
+                    order: 5,
+                    objects: [
+                        { type: "capsule", position: { x: -36, y: 248 } },
+                        {
+                            type: "label",
+                            position: { x: 5, y: 245 },
+                            value: "5",
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R9.png",
+                    order: 4,
+                    objects: [
+                        { type: "item_box", position: { x: 205, y: 213 } },
+                        { type: "item_box", position: { x: 202, y: 197 } },
+                        { type: "item_box", position: { x: 191, y: 205 } },
+                        { type: "item_box", position: { x: 214, y: 204 } },
+                        { type: "capsule", position: { x: 134, y: 229 } },
+                        { type: "item_box", position: { x: 76, y: 226 } },
+                        { type: "item_box", position: { x: 68, y: 214 } },
+                        {
+                            type: "label",
+                            position: { x: 245, y: 146 },
+                            value: "4",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 125, y: 153 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: { x: 159, y: 143 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 166, y: 125 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: 96, y: 159 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: 166, y: 185 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 88, y: 174 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: 172, y: 166 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest/F1_R10.png",
+                    optional: true,
+                    objects: [
+                        { type: "item_box", position: { x: 327, y: 301 } },
+                        { type: "item_box", position: { x: 332, y: 282 } },
+                        { type: "item_box", position: { x: 334, y: 268 } },
+                        {
+                            type: "special_item_box",
+                            position: { x: 314, y: 215 },
+                        },
+                        {
+                            type: "special_item_box",
+                            position: { x: 327, y: 226 },
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            id: "A",
+                            spawnBox: {
+                                position: { x: 270, y: 300 },
+                                size: { x: 30, y: 30 },
+                            },
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 252, y: 297 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: 239, y: 287 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
             ],
         });
