@@ -3,11 +3,11 @@ maps.forEach((map) => {
         map.scenarios.push({
             name: "2",
             averageTime: 114,
-            selected: true,
             rooms: [
                 {
                     src: "assets/maps/forest/F1_R1.png",
                     order: 9,
+                    finish: true,
                     objects: [
                         { type: "capsule", position: { x: -248, y: -241 } },
                         {

@@ -9,13 +9,6 @@ maps.forEach((map) => {
                     src: "assets/maps/forest/F1_R1.png",
                     objects: [
                         {
-                            type: "item_box",
-                            position: {
-                                x: -25.5,
-                                y: -40.5,
-                            },
-                        },
-                        {
                             type: "label",
                             value: "4",
                             position: { x: -260, y: -300 },
