@@ -3,7 +3,6 @@ maps.forEach((map) => {
         map.scenarios.push({
             name: "3",
             averageTime: 114,
-            selected: true,
             rooms: [
                 {
                     src: "assets/maps/forest/F1_R1.png",
