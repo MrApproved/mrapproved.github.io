@@ -535,6 +535,37 @@ maps.forEach((map) => {
                                 },
                             ],
                         },
+                        {
+                            order: 2,
+                            optional: true,
+                            spawnBox: {
+                                position: { x: -339, y: -67 },
+                                size: { x: 25, y: 35 },
+                            },
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: -336, y: -80 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: -316, y: -68 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: -317, y: -40 },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: { x: -335, y: -32 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
                     ],
                 },
                 {

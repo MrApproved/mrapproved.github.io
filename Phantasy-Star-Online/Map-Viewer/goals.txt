@@ -12,7 +12,6 @@ Allow specific object types to be toggled on and off globally (being specific wi
 . Allow waves to be toggled on and off - DONE 
 . Allow waves to be toggled on and off globally - DONE
 Objects can override settings like colour, outlineColour, size etc
-Create an object that is 4 boxes are together
 Display basic route for speed run
 Implement speed run mode (only enable necessary objects and waves)
 Zoom should fit the entire map on load
