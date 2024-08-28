@@ -11,7 +11,7 @@ Create key window which can be toggled on and off like enemies and rooms - DONE
 Allow specific object types to be toggled on and off globally (being specific will bloat the UI) - DONE
 . Allow waves to be toggled on and off - DONE 
 . Allow waves to be toggled on and off globally - DONE
-Objects can override settings like colour, outlineColour, size etc
+Objects can override settings like colour, outlineColour, size etc - DONE
 Display basic route for speed run
 Implement speed run mode (only enable necessary objects and waves)
 Zoom should fit the entire map on load
