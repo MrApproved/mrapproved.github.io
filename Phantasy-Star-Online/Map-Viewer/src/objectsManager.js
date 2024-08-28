@@ -80,6 +80,20 @@ class ObjectsManager {
                 colour: "gray",
                 outlineColour: "orange",
             },
+            {
+                type: "switch",
+                shape: "circle",
+                size: 6,
+                colour: "red",
+                outlineColour: "gray",
+            },
+            {
+                type: "monument",
+                shape: "diamond",
+                size: 16,
+                colour: "red",
+                outlineColour: "orange",
+            },
         ];
 
         var objectsTable = document.createElement("table");

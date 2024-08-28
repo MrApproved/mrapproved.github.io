@@ -5,7 +5,7 @@ maps.forEach((map) => {
             averageTime: 114,
             rooms: [
                 {
-                    src: "assets/maps/forest/F1_R1.png",
+                    src: "assets/maps/forest_1/R1.png",
                     order: 9,
                     finish: true,
                     objects: [
@@ -82,7 +82,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R2.png",
+                    src: "assets/maps/forest_1/R2.png",
                     order: 2,
                     required: true,
                     objects: [
@@ -144,7 +144,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R3.png",
+                    src: "assets/maps/forest_1/R3.png",
                     order: 3,
                     objects: [
                         { type: "item_box", position: { x: 179, y: -27 } },
@@ -205,7 +205,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R4.png",
+                    src: "assets/maps/forest_1/R4.png",
                     required: true,
                     order: 1,
                     start: true,
@@ -243,7 +243,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R5.png",
+                    src: "assets/maps/forest_1/R5.png",
                     order: 8,
                     objects: [
                         { type: "item_box", position: { x: -315, y: -141 } },
@@ -339,7 +339,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R6.png",
+                    src: "assets/maps/forest_1/R6.png",
                     order: 6,
                     objects: [
                         { type: "item_box", position: { x: -12, y: 100 } },
@@ -398,7 +398,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R7.png",
+                    src: "assets/maps/forest_1/R7.png",
                     order: 7,
                     objects: [
                         { type: "capsule", position: { x: -141, y: 54 } },
@@ -426,7 +426,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R8.png",
+                    src: "assets/maps/forest_1/R8.png",
                     order: 5,
                     objects: [
                         { type: "capsule", position: { x: -36, y: 248 } },
@@ -438,7 +438,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R9.png",
+                    src: "assets/maps/forest_1/R9.png",
                     order: 4,
                     objects: [
                         { type: "item_box", position: { x: 205, y: 213 } },
@@ -512,7 +512,7 @@ maps.forEach((map) => {
                     ],
                 },
                 {
-                    src: "assets/maps/forest/F1_R10.png",
+                    src: "assets/maps/forest_1/R10.png",
                     optional: true,
                     objects: [
                         { type: "item_box", position: { x: 327, y: 301 } },

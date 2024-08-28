@@ -8,6 +8,7 @@ var scenarioSelector = new ScenarioSelector(roomManager);
 var mapSelector = new MapSelector(scenarioSelector, enemiesInfo);
 var toggleManager = new ToggleManager();
 var objectsManagers = new ObjectsManager();
+var mapMaker = new MapMaker();
 
 window.addEventListener(
     "resize",

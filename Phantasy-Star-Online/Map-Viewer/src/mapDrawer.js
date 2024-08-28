@@ -11,17 +11,24 @@ class MapDrawer {
     canvas;
     speedRunMode;
     objectsManager;
+    enableMaker;
 
     constructor() {
         this.position = new Position();
         this.zoom = 1.0;
         this.drag = false;
         this.speedRunMode = false;
+        this.enableMaker = false;
     }
 
-    init(canvas) {
+    init(canvas, enableMaker) {
         var self = this;
         self.canvas = canvas;
+        self.enableMaker = enableMaker;
+        if (self.enableMaker) {
+            self.mapMaker = new MapMaker();
+            self.mapMaker.init(self.canvas, self.zoom);
+        }
 
         self.canvas.addEventListener("mousedown", function (event) {
             self.dragStart = {
@@ -57,52 +64,6 @@ class MapDrawer {
         speedRunMode.addEventListener("change", function (e) {
             self.speedRunMode = e.currentTarget.checked;
         });
-
-        self.canvas.addEventListener("mouseup", function (event) {
-            var x = Math.round(
-                (event.pageX - (self.canvas.width - 300) / 2) / self.zoom
-            );
-            var y = Math.round(
-                (event.pageY - self.canvas.height / 2) / self.zoom
-            );
-
-            var mapDrawerWriter = document.getElementById("map-drawer-writer");
-            var mapDrawerWriterDiv = document.createElement("div");
-            var mapDrawerWriterSelect = document.getElementById(
-                "map-drawer-writer-select"
-            );
-            var mapDrawerWriterOutput =
-                mapDrawerWriter.getElementsByClassName("output")[0];
-            var selectedValue =
-                mapDrawerWriterSelect.options[
-                    mapDrawerWriterSelect.selectedIndex
-                ].text;
-            var objectProperty = "type";
-
-            if (self.getEnemy(self.map.enemies, selectedValue) !== undefined)
-                objectProperty = "name";
-            var newObject = {};
-            newObject[objectProperty] = selectedValue;
-            (newObject.position = {
-                x: x,
-                y: y,
-            }),
-                (mapDrawerWriterDiv.innerHTML = `${JSON.stringify(
-                    newObject
-                ).replace(/"([^"]+)":/g, "$1:")},`);
-
-            mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
-        });
-
-        var clearMapDrawerWrtier = document
-            .getElementById("map-drawer-writer")
-            .getElementsByTagName("button");
-        clearMapDrawerWrtier[0].addEventListener("click", () => {
-            var mapDrawerWriterOutput = document
-                .getElementById("map-drawer-writer")
-                .getElementsByClassName("output")[0];
-            mapDrawerWriterOutput.innerHTML = "";
-        });
     }
 
     setObjectsManager(objectsManagers) {
@@ -111,22 +72,12 @@ class MapDrawer {
 
     setMap(map) {
         this.map = map;
-
-        var mapDrawerWriterSelect = document.getElementById(
-            "map-drawer-writer-select"
-        );
-
-        this.map.enemies.forEach((enemy) => {
-            var option = document.createElement("option");
-            option.text = option.value = enemy.name;
-            mapDrawerWriterSelect.add(option);
-        });
-
-        this.objectsManager.objects.forEach((object) => {
-            var option = document.createElement("option");
-            option.text = option.value = object.type;
-            mapDrawerWriterSelect.add(option);
-        });
+        if (this.enableMaker === true) {
+            this.mapMaker.populateDropdown(
+                this.map.enemies,
+                this.objectsManager.objects
+            );
+        }
     }
 
     setScenario(scenario) {
@@ -223,6 +174,7 @@ class MapDrawer {
         }
     }
 
+    // Duplicated
     getEnemy(enemies, name) {
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].name === name) return enemies[i];
@@ -283,6 +235,14 @@ class MapDrawer {
                     object.position,
                     object.positionOffset,
                     getColour()
+                );
+            else if (mapObject.shape === "diamond")
+                this.drawDiamond(
+                    ctx,
+                    object.position,
+                    getColour(),
+                    mapObject.outlineColour,
+                    mapObject.size
                 );
         }
         ctx.restore();
@@ -353,8 +313,33 @@ class MapDrawer {
         var calculatedXPosition = this.calculateXPosition(position.x);
         var calculatedYPosition = this.calculateYPosition(position.y);
         var size = baseSize * this.zoom;
+
         ctx.fillRect(calculatedXPosition, calculatedYPosition, size, size);
         ctx.strokeRect(calculatedXPosition, calculatedYPosition, size, size);
+    }
+
+    drawDiamond(ctx, position, colour, borderColour = "#222", size = 16) {
+        ctx.fillStyle = colour;
+        ctx.strokeStyle = borderColour;
+
+        var xPos = this.position.x + position.x * this.zoom;
+        var yPos = this.position.y + position.y * this.zoom;
+        ctx.lineWidth = 7 * this.zoom;
+        ctx.beginPath();
+        ctx.save();
+        ctx.translate(xPos, yPos);
+        ctx.moveTo(0, (size * this.zoom) / 2);
+        ctx.lineTo((-size * this.zoom) / 2, 0);
+        ctx.lineTo(0, (-size * this.zoom) / 2);
+        ctx.lineTo((size * this.zoom) / 2, 0);
+        ctx.lineTo(0, (size * this.zoom) / 2);
+
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.closePath();
+
+        ctx.restore();
     }
 
     drawDashedBox(ctx, position, colour, size) {

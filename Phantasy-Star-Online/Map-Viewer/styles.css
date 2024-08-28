@@ -117,11 +117,12 @@ h1 {
     right: 20px;
 }
 
-#map-drawer-writer button {
-    position: absolute;
+#map-drawer-writer .buttons button {
     height: 32px;
-    bottom: 0;
-    right: 20px;
+}
+
+#map-drawer-writer .buttons button {
+    height: 32px;
 }
 
 #map-drawer-writer div {
