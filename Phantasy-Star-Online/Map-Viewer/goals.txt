@@ -12,8 +12,23 @@ Allow specific object types to be toggled on and off globally (being specific wi
 . Allow waves to be toggled on and off - DONE 
 . Allow waves to be toggled on and off globally - DONE
 Objects can override settings like colour, outlineColour, size etc - DONE
-Display basic route for speed run
-Implement speed run mode (only enable necessary objects and waves)
+Allow placing of markers in a console window which can then be copied into the map structure file - DONE
+Implement speed run mode (only enable necessary objects and waves) - DONE
 Zoom should fit the entire map on load
-Allow placing of markers in a console window which can then be copied into the map structure file
+Display basic route for speed run
+Break classes down to allow better management
+MapMaker should store enemies against an object which the MapDrawer will invoke, this allows to see the placement of markers which will later be saved as a JSON map
+Allow Objects array to be created for MapMaker
+Allow Waves array to be created for MapMaker
+Allow Additional wave to array for MapMaker
+Allow deletion wave to array for MapMaker
+Allow properties to be modified
+Allow Wave Encounters array to be created
+Allow encounters array just like above
+Allow encounters to be modified
+Allow enemies to be added to encounters
+Allow enemy properties to be modified
+Objects/Enemies should be MapEntity which contains a "Draw" method. The json can just populate the properties which it then uses
 
+Investigate webpack.js to compile into one single file for github io site
+Create individual github repository to store the app

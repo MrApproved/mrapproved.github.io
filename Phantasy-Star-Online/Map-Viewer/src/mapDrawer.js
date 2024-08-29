@@ -89,6 +89,9 @@ class MapDrawer {
         self.position.x = (self.canvas.width / 2) * self.zoom - 150;
         self.position.y = (self.canvas.height / 2) * self.zoom;
 
+        document.getElementById("average-time").innerHTML = 
+            `${Math.floor(scenario.averageTime / 60)}:${scenario.averageTime % 60}`;
+
         self.mapRooms = new Array();
 
         for (let i = 0; i < self.scenario.rooms.length; i++) {
@@ -127,6 +130,9 @@ class MapDrawer {
 
                 ctx.shadowColor = undefined;
                 ctx.shadowBlur = 0;
+
+                if(room.order === undefined && self.speedRunMode === true)
+                    return;
 
                 if (room.active === undefined || room.active === true) {
                     if (room.waves !== undefined) {
