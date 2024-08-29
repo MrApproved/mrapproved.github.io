@@ -140,6 +140,53 @@ maps.forEach((map) => {
                 },
                 {
                     src: "assets/maps/forest_2/R3.png",
+                    order: 6,
+                    objects: [
+                        { type: "item_box", position: { x: 234, y: -166 } },
+                        { type: "item_box", position: { x: 232, y: -181 } },
+                        { type: "item_box", position: { x: 221, y: -172 } },
+                        { type: "item_box", position: { x: 220, y: -189 } },
+                        { type: "capsule", position: { x: 257, y: -207 } },
+                        {
+                            type: "label",
+                            position: { x: 273, y: -123 },
+                            value: "6",
+                        },
+                        { type: "boss_warp", position: { x: 81, y: -260 } },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 311, y: -169 },
+                                        },
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 327, y: -150 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: 330, y: -168 },
+                                        },
+                                        {
+                                            name: "Hildebear",
+                                            position: { x: 137, y: -277 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest_2/R4.png",
@@ -448,6 +495,101 @@ maps.forEach((map) => {
                 },
                 {
                     src: "assets/maps/forest_2/R9.png",
+                    order: 5,
+                    objects: [
+                        { type: "warp", position: { x: 223, y: 94 } },
+                        { type: "warp", position: { x: 229, y: -16 } },
+                        { type: "item_box", position: { x: 321, y: 61 } },
+                        { type: "item_box", position: { x: 338, y: 67 } },
+                        { type: "item_box", position: { x: 320, y: 80 } },
+                        { type: "item_box", position: { x: 333, y: 85 } },
+                        { type: "item_box", position: { x: 318, y: 98 } },
+                        {
+                            type: "label",
+                            position: { x: 151, y: 15 },
+                            value: "5",
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Monest",
+                                            position: { x: 265, y: 42 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 350, y: 116 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 340, y: 125 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 320, y: 129 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 302, y: 128 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 288, y: 126 },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: { x: 270, y: 130 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 293, y: 8 },
+                                        },
+                                        {
+                                            name: "Gigobooma",
+                                            position: { x: 260, y: 30 },
+                                        },
+                                        {
+                                            name: "Rag Rappy",
+                                            position: { x: 293, y: 86 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            order: 2,
+                            optional: true,
+                            spawnBox: {
+                                position: { x: 163, y: -94 },
+                                size: { x: 50, y: 50 },
+                            },
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: { x: 257, y: -16 },
+                                        },
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 278, y: -32 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     src: "assets/maps/forest_2/R10.png",
@@ -519,7 +661,7 @@ maps.forEach((map) => {
                     objects: [
                         {
                             type: "label",
-                            position: { x: 86, y: 164 },
+                            position: { x: 110, y: 164 },
                             value: "4",
                         },
                         {
@@ -550,6 +692,115 @@ maps.forEach((map) => {
                         { type: "item_box", position: { x: 288, y: 291 } },
                         { type: "capsule", position: { x: 275, y: 269 } },
                         { type: "monument", position: { x: 260, y: 291 } },
+                        { type: "warp", position: { x: 165, y: 119 } },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            optional: true,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Rag Rappy",
+                                            position: { x: 176, y: 264 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: 155, y: 282 },
+                                        },
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: 143, y: 220 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 133, y: 234 },
+                                        },
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 147, y: 251 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    enemies: [
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: { x: 201, y: 277 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            order: 2,
+                            spawnBox: {
+                                position: { x: 93, y: 206 },
+                                size: { x: 100, y: 100 },
+                            },
+                            encounters: [
+                                {
+                                    order: 1,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: { x: 192, y: 254 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: { x: 194, y: 261 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    enemies: [
+                                        {
+                                            name: "Gigobooma",
+                                            position: { x: 144, y: 276 },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    enemies: [
+                                        {
+                                            name: "Hildebear",
+                                            position: { x: 152, y: 220 },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    src: "assets/maps/forest_2/R12.png",
+                    optional: true,
+                    objects: [
+                        { type: "warp", position: { x: 199, y: -74 } },
+                        {
+                            type: "special_item_box",
+                            position: { x: 172, y: -78 },
+                        },
                     ],
                 },
             ],

@@ -94,6 +94,19 @@ class ObjectsManager {
                 colour: "red",
                 outlineColour: "orange",
             },
+            {
+                type: "warp",
+                shape: "triangle",
+                colour: "springgreen",
+                size: 24,
+            },
+            {
+                type: "boss_warp",
+                shape: "sqaure",
+                colour: "gray",
+                outlineColour: "red",
+                size: 32,
+            },
         ];
 
         var objectsTable = document.createElement("table");
