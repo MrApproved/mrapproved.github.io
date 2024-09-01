@@ -572,7 +572,6 @@ maps.forEach((map) => {
                     order: 1,
                     start: true,
                     src: "assets/maps/forest_1/R6.png",
-                    required: true,
                     objects: [
                         { type: "start", position: { x: 0, y: 0 } },
                         { type: "door_switch", position: { x: -70, y: 40 } },
@@ -597,7 +596,6 @@ maps.forEach((map) => {
                 {
                     order: 2,
                     src: "assets/maps/forest_1/R7.png",
-                    required: true,
                     objects: [
                         {
                             type: "label",

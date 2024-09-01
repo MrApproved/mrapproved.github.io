@@ -3,6 +3,8 @@ class MapMaker {
     canvas;
     enemies;
     zoom;
+    scenario = new Scenario();
+    roomIndex;
 
     constructor() {
         self.map = {};
@@ -12,6 +14,7 @@ class MapMaker {
         var self = this;
         self.canvas = canvas;
         self.zoom = zoom;
+        self.roomIndex = -1;
 
         var mapDrawerWriter = document.getElementById("map-drawer-writer");
 
@@ -47,7 +50,12 @@ class MapMaker {
                     newObject
                 ).replace(/"([^"]+)":/g, "$1:")},`);
 
+            if (self.roomIndex != -1) {
+                self.scenario.rooms[self.roomIndex].objects.push(newObject);
+            }
+
             mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
+            self.drawScenarioInfo();
         });
 
         var mapDrawerWriterButtonsContainer =
@@ -101,11 +109,186 @@ class MapMaker {
         });
     }
 
+    setScenario(scenario) {
+        var self = this;
+        self.scenario = scenario;
+        self.drawScenarioInfo();
+        self.roomIndex = 0;
+    }
+
+    drawScenarioInfo() {
+        var element = document.getElementById("map-drawer-scenario");
+        var self = this;
+        self.scenario;
+        element.innerHTML = "";
+
+        var nameDiv = document.createElement("div");
+        nameDiv.innerHTML = self.scenario.name;
+        element.appendChild(nameDiv);
+
+        var averageTimeDiv = document.createElement("div");
+        averageTimeDiv.innerHTML = self.scenario.averageTime;
+        element.appendChild(averageTimeDiv);
+
+        var roomsDiv = document.createElement("div");
+        roomsDiv.innerHTML = "Rooms";
+
+        self.populateRoomsDiv(roomsDiv);
+
+        element.appendChild(roomsDiv);
+    }
+
+    populateRoomsDiv(element) {
+        var self = this;
+        self.scenario.rooms.forEach((room, i) => {
+            var orderDiv = document.createElement("div");
+            orderDiv.innerHTML = room.order === undefined ? "-" : room.order;
+            element.appendChild(orderDiv);
+
+            var finishDiv = document.createElement("div");
+            finishDiv.innerHTML = room.finish;
+            element.appendChild(finishDiv);
+
+            var startDiv = document.createElement("div");
+            startDiv.innerHTML = room.start;
+            element.appendChild(startDiv);
+
+            var objectsDiv = document.createElement("div");
+            objectsDiv.innerHTML = "Objects";
+
+            var addObjectButton = document.createElement("button");
+
+            addObjectButton.innerHTML =
+                self.roomIndex === i ? "SELECTED" : "SELECT";
+
+            addObjectButton.addEventListener("click", () => {
+                self.roomIndex = i;
+            });
+
+            objectsDiv.append(addObjectButton);
+
+            self.populateObjectsDiv(room, objectsDiv);
+
+            var wavesDiv = document.createElement("div");
+            wavesDiv.innerHTML = "Waves";
+
+            self.populateWavesDiv(room, wavesDiv);
+
+            element.appendChild(objectsDiv);
+            element.appendChild(wavesDiv);
+        });
+    }
+
+    // addObject(room) {
+    //     var self = this;
+    //     var type = prompt("Type");
+    //     var object = new MapObject();
+    //     object.type = type;
+    //     room.objects.push(object);
+    //     self.drawScenarioInfo();
+    // }
+
+    populateObjectsDiv(room, element) {
+        var self = this;
+        if (room.objects !== undefined) {
+            room.objects.forEach((object, i) => {
+                var typeDiv = document.createElement("div");
+                typeDiv.innerHTML = object.type;
+                element.appendChild(typeDiv);
+
+                var editObjectButton = document.createElement("button");
+                editObjectButton.innerHTML = "EDIT";
+
+                editObjectButton.addEventListener("click", function () {
+                    self.promptObjectInputs(object);
+                });
+
+                typeDiv.append(editObjectButton);
+
+                var removeObjectButton = document.createElement("button");
+                removeObjectButton.innerHTML = "DELETE";
+
+                removeObjectButton.addEventListener("click", function () {
+                    room.objects.splice(i, 1);
+                    self.drawScenarioInfo();
+                });
+
+                typeDiv.append(removeObjectButton);
+            });
+        }
+    }
+
+    populateWavesDiv(room, element) {
+        var self = this;
+        if (room.waves !== undefined) {
+            room.waves.forEach((wave) => {
+                self.createLabelDiv(element, wave.order);
+                self.createLabelDiv(element, wave.optional);
+
+                var spawnBoxButton = document.createElement("button");
+                spawnBoxButton.innerHTML = "SPAWN BOX";
+
+                spawnBoxButton.addEventListener("click", () => {
+                    var position = { x: 0, y: 0 };
+                    var size = { x: 0, y: 0 };
+
+                    position.x = prompt("Position X");
+                    position.y = prompt("Position Y");
+                    size.x = prompt("Size X");
+                    size.y = prompt("Size Y");
+
+                    if (
+                        position.x === undefined ||
+                        position.y === undefined ||
+                        size.x === undefined ||
+                        size.y === undefined
+                    )
+                        return;
+
+                    wave.spawnBox = {
+                        position: position,
+                        size: size,
+                    };
+                });
+                element.append(spawnBoxButton);
+            });
+        }
+    }
+
+    promptObjectInputs(object) {
+        Object.keys(object).forEach((property) => {
+            if (typeof object[property] === "object") {
+                var objectProperty = object[property];
+                Object.keys(objectProperty).forEach((prop) => {
+                    objectProperty[prop] = prompt(
+                        `${property} - ${prop}`,
+                        objectProperty[prop]
+                    );
+                });
+            } else object[property] = prompt(property, object[property]);
+        });
+    }
+
     // Duplicated
     getEnemy(name) {
         for (var i = 0; i < self.enemies.length; i++) {
             if (self.enemies[i].name === name) return self.enemies[i];
         }
         return undefined;
+    }
+
+    createLabelDiv(parentElement, text) {
+        var div = document.createElement("div");
+        div.innerHTML = text;
+        parentElement.appendChild(div);
+    }
+}
+
+class MapObject {
+    type;
+    position;
+
+    constructor() {
+        this.position = { x: 0, y: 0 };
     }
 }

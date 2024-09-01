@@ -140,6 +140,7 @@ maps.forEach((map) => {
                 },
                 {
                     src: "assets/maps/forest_2/R3.png",
+                    finish: true,
                     order: 6,
                     objects: [
                         { type: "item_box", position: { x: 234, y: -166 } },

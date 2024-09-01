@@ -27,7 +27,7 @@ class MapDrawer {
         self.enableMaker = enableMaker;
         if (self.enableMaker) {
             self.mapMaker = new MapMaker();
-            self.mapMaker.init(self.canvas, self.zoom);
+            self.mapMaker.init(self.canvas, self.zoom, self.map);
         }
 
         self.canvas.addEventListener("mousedown", function (event) {
@@ -89,8 +89,9 @@ class MapDrawer {
         self.position.x = (self.canvas.width / 2) * self.zoom - 150;
         self.position.y = (self.canvas.height / 2) * self.zoom;
 
-        document.getElementById("average-time").innerHTML = 
-            `${Math.floor(scenario.averageTime / 60)}:${scenario.averageTime % 60}`;
+        document.getElementById("average-time").innerHTML = `${Math.floor(
+            scenario.averageTime / 60
+        )}:${scenario.averageTime % 60}`;
 
         self.mapRooms = new Array();
 
@@ -100,6 +101,8 @@ class MapDrawer {
             room.image.src = room.src;
             self.mapRooms.push(room);
         }
+
+        self.mapMaker.setScenario(self.scenario);
     }
 
     draw(ctx) {
@@ -131,7 +134,7 @@ class MapDrawer {
                 ctx.shadowColor = undefined;
                 ctx.shadowBlur = 0;
 
-                if(room.order === undefined && self.speedRunMode === true)
+                if (room.order === undefined && self.speedRunMode === true)
                     return;
 
                 if (room.active === undefined || room.active === true) {

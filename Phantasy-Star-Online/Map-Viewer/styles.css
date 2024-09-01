@@ -141,6 +141,36 @@ h1 {
     height: 140px;
 }
 
+#map-drawer-scenario {
+    height: 70vh;
+    position: fixed;
+    top: 50px;
+    left: 6px;
+    width: 500px;
+    background-color: rgba(46, 106, 209, 0.25);
+    overflow: auto;
+}
+
+#map-drawer-scenario > div {
+    margin-left: 6px;
+}
+
+#map-drawer-scenario > div > div {
+    margin-left: 12px;
+}
+
+#map-drawer-scenario > div > div > div {
+    margin-left: 18px;
+}
+
+#map-drawer-scenario > div > div > div > div {
+    margin-left: 24px;
+}
+
+#map-drawer-scenario > div > div > div > div > div {
+    margin-left: 30px;
+}
+
 #footer {
     position: fixed;
     font-size: 0.7em;
