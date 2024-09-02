@@ -1,7 +1,7 @@
 maps.forEach((map) => {
     if (map.name === "Forest 2") {
         map.scenarios.push({
-            name: "3",
+            name: "BLANK",
             averageTime: 114,
             rooms: [
                 {

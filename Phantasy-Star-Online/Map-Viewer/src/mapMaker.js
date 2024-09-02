@@ -16,7 +16,7 @@ class MapMaker {
         self.zoom = zoom;
         self.roomIndex = -1;
 
-        var mapDrawerWriter = document.getElementById("map-drawer-writer");
+        //var mapDrawerWriter = document.getElementById("map-drawer-writer");
 
         self.canvas.addEventListener("mouseup", function (event) {
             var x = Math.round(
@@ -26,12 +26,12 @@ class MapMaker {
                 (event.pageY - self.canvas.height / 2) / self.zoom
             );
 
-            var mapDrawerWriterDiv = document.createElement("div");
+            // var mapDrawerWriterDiv = document.createElement("div");
             var mapDrawerWriterSelect = document.getElementById(
                 "map-drawer-writer-select"
             );
-            var mapDrawerWriterOutput =
-                mapDrawerWriter.getElementsByClassName("output")[0];
+            // var mapDrawerWriterOutput =
+            //     mapDrawerWriter.getElementsByClassName("output")[0];
             var selectedValue =
                 mapDrawerWriterSelect.options[
                     mapDrawerWriterSelect.selectedIndex
@@ -42,45 +42,49 @@ class MapMaker {
                 objectProperty = "name";
             var newObject = {};
             newObject[objectProperty] = selectedValue;
-            (newObject.position = {
+            newObject.position = {
                 x: x,
                 y: y,
-            }),
-                (mapDrawerWriterDiv.innerHTML = `${JSON.stringify(
-                    newObject
-                ).replace(/"([^"]+)":/g, "$1:")},`);
+            };
+            // mapDrawerWriterDiv.innerHTML = `${JSON.stringify(newObject).replace(
+            //     /"([^"]+)":/g,
+            //     "$1:"
+            // )},`;
 
-            if (self.roomIndex != -1) {
+            if (self.roomIndex !== -1) {
+                if (self.scenario.rooms[self.roomIndex].objects === undefined) {
+                    self.scenario.rooms[self.roomIndex].objects = [];
+                }
                 self.scenario.rooms[self.roomIndex].objects.push(newObject);
             }
 
-            mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
+            //mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
             self.drawScenarioInfo();
         });
 
-        var mapDrawerWriterButtonsContainer =
-            mapDrawerWriter.getElementsByClassName("buttons")[0];
+        // var mapDrawerWriterButtonsContainer =
+        //     mapDrawerWriter.getElementsByClassName("buttons")[0];
 
-        var clearButton = document.createElement("button");
-        clearButton.innerHTML = "Clear";
-        clearButton.addEventListener("click", () => {
-            var mapDrawerWriterOutput = document
-                .getElementById("map-drawer-writer")
-                .getElementsByClassName("output")[0];
-            mapDrawerWriterOutput.innerHTML = "";
-        });
+        // var clearButton = document.createElement("button");
+        // clearButton.innerHTML = "Clear";
+        // clearButton.addEventListener("click", () => {
+        //     var mapDrawerWriterOutput = document
+        //         .getElementById("map-drawer-writer")
+        //         .getElementsByClassName("output")[0];
+        //     mapDrawerWriterOutput.innerHTML = "";
+        // });
 
-        var waveButton = document.createElement("button");
-        waveButton.innerHTML = "Wave";
-        waveButton.addEventListener("click", () => {
-            var mapDrawerWriterOutput = document
-                .getElementById("map-drawer-writer")
-                .getElementsByClassName("output")[0];
-            mapDrawerWriterOutput.innerHTML = "";
-        });
+        // var waveButton = document.createElement("button");
+        // waveButton.innerHTML = "Wave";
+        // waveButton.addEventListener("click", () => {
+        //     var mapDrawerWriterOutput = document
+        //         .getElementById("map-drawer-writer")
+        //         .getElementsByClassName("output")[0];
+        //     mapDrawerWriterOutput.innerHTML = "";
+        // });
 
-        mapDrawerWriterButtonsContainer.appendChild(waveButton);
-        mapDrawerWriterButtonsContainer.appendChild(clearButton);
+        // mapDrawerWriterButtonsContainer.appendChild(waveButton);
+        // mapDrawerWriterButtonsContainer.appendChild(clearButton);
     }
 
     populateDropdown(enemies, objects) {
@@ -141,17 +145,16 @@ class MapMaker {
     populateRoomsDiv(element) {
         var self = this;
         self.scenario.rooms.forEach((room, i) => {
-            var orderDiv = document.createElement("div");
-            orderDiv.innerHTML = room.order === undefined ? "-" : room.order;
-            element.appendChild(orderDiv);
+            self.createLabelDiv(
+                element,
+                `Order: ${room.order === undefined ? "-" : room.order}`
+            );
 
-            var finishDiv = document.createElement("div");
-            finishDiv.innerHTML = room.finish;
-            element.appendChild(finishDiv);
+            if (room.finish !== undefined)
+                self.createLabelDiv(element, `Finish: ${room.finish}`);
 
-            var startDiv = document.createElement("div");
-            startDiv.innerHTML = room.start;
-            element.appendChild(startDiv);
+            if (room.start !== undefined)
+                self.createLabelDiv(element, `Start: ${room.start}`);
 
             var objectsDiv = document.createElement("div");
             objectsDiv.innerHTML = "Objects";
@@ -163,6 +166,7 @@ class MapMaker {
 
             addObjectButton.addEventListener("click", () => {
                 self.roomIndex = i;
+                self.drawScenarioInfo();
             });
 
             objectsDiv.append(addObjectButton);
@@ -172,7 +176,26 @@ class MapMaker {
             var wavesDiv = document.createElement("div");
             wavesDiv.innerHTML = "Waves";
 
+            var addEncounterButton = document.createElement("button");
+
+            addEncounterButton.innerHTML = "+ ENCOUNTER";
+
+            addEncounterButton.addEventListener("click", () => {
+                room.waves[i].encounters.push([{ order: 0, enemies: [] }]);
+                self.drawScenarioInfo();
+            });
+
+            wavesDiv.append(addEncounterButton);
+
             self.populateWavesDiv(room, wavesDiv);
+
+            var editButton = document.createElement("button");
+            editButton.innerHTML = "EDIT";
+            element.append(editButton);
+
+            editButton.addEventListener("click", () => {
+                alert("not implemented");
+            });
 
             element.appendChild(objectsDiv);
             element.appendChild(wavesDiv);
@@ -221,38 +244,67 @@ class MapMaker {
     populateWavesDiv(room, element) {
         var self = this;
         if (room.waves !== undefined) {
-            room.waves.forEach((wave) => {
+            room.waves.forEach((wave, i) => {
                 self.createLabelDiv(element, wave.order);
                 self.createLabelDiv(element, wave.optional);
 
-                var spawnBoxButton = document.createElement("button");
-                spawnBoxButton.innerHTML = "SPAWN BOX";
+                // var spawnBoxButton = document.createElement("button");
+                // spawnBoxButton.innerHTML = "SPAWN BOX";
+                // spawnBoxButton.addEventListener("click", () => {
+                //     var position = { x: 0, y: 0 };
+                //     var size = { x: 0, y: 0 };
 
-                spawnBoxButton.addEventListener("click", () => {
-                    var position = { x: 0, y: 0 };
-                    var size = { x: 0, y: 0 };
+                //     position.x = prompt("Position X");
+                //     position.y = prompt("Position Y");
+                //     size.x = prompt("Size X");
+                //     size.y = prompt("Size Y");
 
-                    position.x = prompt("Position X");
-                    position.y = prompt("Position Y");
-                    size.x = prompt("Size X");
-                    size.y = prompt("Size Y");
+                //     if (
+                //         position.x === undefined ||
+                //         position.y === undefined ||
+                //         size.x === undefined ||
+                //         size.y === undefined
+                //     )
+                //         return;
 
-                    if (
-                        position.x === undefined ||
-                        position.y === undefined ||
-                        size.x === undefined ||
-                        size.y === undefined
-                    )
-                        return;
+                //     wave.spawnBox = {
+                //         position: position,
+                //         size: size,
+                //     };
+                // });
 
-                    wave.spawnBox = {
-                        position: position,
-                        size: size,
-                    };
+                // element.innerHTML = "Encounters";
+
+                wave.encounters.forEach((encounter, i) => {
+                    var encounterLabelDiv = self.createLabelDiv(
+                        element,
+                        "Encounter"
+                    );
+
+                    var encounterDeleteButton =
+                        document.createElement("button");
+                    encounterDeleteButton.innerHTML = "DELETE";
+                    encounterDeleteButton.addEventListener("click", () => {
+                        wave.encounters.splice(i, 1);
+                        self.drawScenarioInfo();
+                    });
+
+                    encounterLabelDiv.append(encounterDeleteButton);
+
+                    var divEncounter = document.createElement("div");
+                    self.populateEncountersDiv(encounter, divEncounter);
+                    element.append(divEncounter);
                 });
-                element.append(spawnBoxButton);
+
+                //element.append(spawnBoxButton);
             });
         }
+    }
+
+    populateEncountersDiv(encounter, element) {
+        var self = this;
+        self.createLabelDiv(element, encounter.order);
+        self.createLabelDiv(element, encounter.optional);
     }
 
     promptObjectInputs(object) {
@@ -281,6 +333,7 @@ class MapMaker {
         var div = document.createElement("div");
         div.innerHTML = text;
         parentElement.appendChild(div);
+        return div;
     }
 }
 
