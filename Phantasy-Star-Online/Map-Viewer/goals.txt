@@ -18,15 +18,15 @@ Zoom should fit the entire map on load
 Display basic route for speed run
 Break classes down to allow better management
 MapMaker should store enemies against an object which the MapDrawer will invoke, this allows to see the placement of markers which will later be saved as a JSON map - DONE
-Allow Objects array to be created for MapMaker - 50%, need to allow all objects like door, etc
-Allow Waves array to be created for MapMaker - 25%, need to implement it all (can add and remove encounters, but can't add enemies yet or edit order)
-Allow Additional wave to array for MapMaker
-Allow deletion wave to array for MapMaker
-Allow properties to be modified
-Allow Wave Encounters array to be created
-Allow encounters array just like above
-Allow encounters to be modified
-Allow enemies to be added to encounters
+Allow Objects array to be created for MapMaker - DONE
+Allow Waves array to be created for MapMaker - DONE
+Allow Additional wave to array for MapMaker - DONE
+Allow deletion wave to array for MapMaker - DONE
+Allow Wave Encounters array to be created - DONE
+Allow encounters array just like above - DONE
+Allow encounters to be modified - DONE
+Allow enemies to be added to encounters - DONE
+Allow properties to be modified - Create a basic modal javascript. Each specific map object should inherit "MapMarker" which has type and a position, then extra parts can be added to the specific object and it should have a EditProperties which will create a new Modal with specific contents
 Allow enemy properties to be modified
 Objects/Enemies should be MapEntity which contains a "Draw" method. The json can just populate the properties which it then uses
 

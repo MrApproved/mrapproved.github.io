@@ -113,7 +113,10 @@ class MapDrawer {
                 if (room.order !== undefined) ctx.globalAlpha = 1;
                 else ctx.globalAlpha = 0.25;
 
-                if (room.start === true || room.finish === true) {
+                if (room.selected === true) {
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = "#F0F";
+                } else if (room.start === true || room.finish === true) {
                     ctx.shadowBlur = 15;
                     ctx.shadowColor = room.start === true ? "aqua" : "orange";
                 } else {

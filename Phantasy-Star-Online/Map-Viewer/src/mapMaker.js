@@ -5,6 +5,8 @@ class MapMaker {
     zoom;
     scenario = new Scenario();
     roomIndex;
+    waveIndex;
+    encounterIndex;
 
     constructor() {
         self.map = {};
@@ -15,6 +17,8 @@ class MapMaker {
         self.canvas = canvas;
         self.zoom = zoom;
         self.roomIndex = -1;
+        self.waveIndex = -1;
+        self.encounterIndex = -1;
 
         //var mapDrawerWriter = document.getElementById("map-drawer-writer");
 
@@ -52,10 +56,19 @@ class MapMaker {
             // )},`;
 
             if (self.roomIndex !== -1) {
-                if (self.scenario.rooms[self.roomIndex].objects === undefined) {
-                    self.scenario.rooms[self.roomIndex].objects = [];
+                if (self.waveIndex !== -1 && self.roomIndex !== -1) {
+                    self.scenario.rooms[self.roomIndex].waves[
+                        self.waveIndex
+                    ].encounters[self.encounterIndex].enemies.push(newObject);
+                } else {
+                    if (
+                        self.scenario.rooms[self.roomIndex].objects ===
+                        undefined
+                    ) {
+                        self.scenario.rooms[self.roomIndex].objects = [];
+                    }
+                    self.scenario.rooms[self.roomIndex].objects.push(newObject);
                 }
-                self.scenario.rooms[self.roomIndex].objects.push(newObject);
             }
 
             //mapDrawerWriterOutput.appendChild(mapDrawerWriterDiv);
@@ -117,7 +130,7 @@ class MapMaker {
         var self = this;
         self.scenario = scenario;
         self.drawScenarioInfo();
-        self.roomIndex = 0;
+        self.selectRoom(-1);
     }
 
     drawScenarioInfo() {
@@ -165,7 +178,9 @@ class MapMaker {
                 self.roomIndex === i ? "SELECTED" : "SELECT";
 
             addObjectButton.addEventListener("click", () => {
-                self.roomIndex = i;
+                self.selectRoom(i);
+                self.waveIndex = -1;
+                self.encounterIndex = -1;
                 self.drawScenarioInfo();
             });
 
@@ -176,18 +191,17 @@ class MapMaker {
             var wavesDiv = document.createElement("div");
             wavesDiv.innerHTML = "Waves";
 
-            var addEncounterButton = document.createElement("button");
-
-            addEncounterButton.innerHTML = "+ ENCOUNTER";
-
-            addEncounterButton.addEventListener("click", () => {
-                room.waves[i].encounters.push([{ order: 0, enemies: [] }]);
+            var addWaveButton = document.createElement("button");
+            addWaveButton.innerHTML = "+ WAVE";
+            addWaveButton.addEventListener("click", () => {
+                if (room.waves === undefined) room.waves = [];
+                room.waves.push({ order: 100, encounters: [] });
                 self.drawScenarioInfo();
             });
 
-            wavesDiv.append(addEncounterButton);
+            wavesDiv.append(addWaveButton);
 
-            self.populateWavesDiv(room, wavesDiv);
+            self.populateWavesDiv(room, i, wavesDiv);
 
             var editButton = document.createElement("button");
             editButton.innerHTML = "EDIT";
@@ -241,51 +255,54 @@ class MapMaker {
         }
     }
 
-    populateWavesDiv(room, element) {
+    populateWavesDiv(room, roomIndex, element) {
         var self = this;
         if (room.waves !== undefined) {
             room.waves.forEach((wave, i) => {
                 self.createLabelDiv(element, wave.order);
                 self.createLabelDiv(element, wave.optional);
+                var encountersLabelDev = self.createLabelDiv(
+                    element,
+                    "Encounters"
+                );
 
-                // var spawnBoxButton = document.createElement("button");
-                // spawnBoxButton.innerHTML = "SPAWN BOX";
-                // spawnBoxButton.addEventListener("click", () => {
-                //     var position = { x: 0, y: 0 };
-                //     var size = { x: 0, y: 0 };
+                var addEncounterButton = document.createElement("button");
+                addEncounterButton.innerHTML = "+ ENCOUNTER";
+                addEncounterButton.addEventListener("click", () => {
+                    wave.encounters.push({ order: 1, enemies: [] });
+                    self.drawScenarioInfo();
+                });
 
-                //     position.x = prompt("Position X");
-                //     position.y = prompt("Position Y");
-                //     size.x = prompt("Size X");
-                //     size.y = prompt("Size Y");
+                encountersLabelDev.append(addEncounterButton);
 
-                //     if (
-                //         position.x === undefined ||
-                //         position.y === undefined ||
-                //         size.x === undefined ||
-                //         size.y === undefined
-                //     )
-                //         return;
-
-                //     wave.spawnBox = {
-                //         position: position,
-                //         size: size,
-                //     };
-                // });
-
-                // element.innerHTML = "Encounters";
-
-                wave.encounters.forEach((encounter, i) => {
+                wave.encounters.forEach((encounter, j) => {
                     var encounterLabelDiv = self.createLabelDiv(
                         element,
                         "Encounter"
                     );
 
+                    var encounterSelectButton =
+                        document.createElement("button");
+                    encounterSelectButton.innerHTML =
+                        roomIndex === self.roomIndex &&
+                        self.waveIndex === i &&
+                        self.encounterIndex === j
+                            ? "SELECTED"
+                            : "SELECT";
+                    encounterSelectButton.addEventListener("click", () => {
+                        self.selectRoom(roomIndex);
+                        self.waveIndex = i;
+                        self.encounterIndex = j;
+                        self.drawScenarioInfo();
+                    });
+
+                    encounterLabelDiv.append(encounterSelectButton);
+
                     var encounterDeleteButton =
                         document.createElement("button");
                     encounterDeleteButton.innerHTML = "DELETE";
                     encounterDeleteButton.addEventListener("click", () => {
-                        wave.encounters.splice(i, 1);
+                        wave.encounters.splice(j, 1);
                         self.drawScenarioInfo();
                     });
 
@@ -303,8 +320,21 @@ class MapMaker {
 
     populateEncountersDiv(encounter, element) {
         var self = this;
-        self.createLabelDiv(element, encounter.order);
-        self.createLabelDiv(element, encounter.optional);
+        self.createLabelDiv(element, `Order: ${encounter.order}`);
+        self.createLabelDiv(element, `Optional: ${encounter.optional}`);
+
+        encounter.enemies.forEach((enemy, i) => {
+            var enemyDiv = self.createLabelDiv(element, enemy.name);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "DELETE";
+            deleteButton.addEventListener("click", () => {
+                encounter.enemies.splice(i, 1);
+                self.drawScenarioInfo();
+            });
+
+            enemyDiv.append(deleteButton);
+        });
     }
 
     promptObjectInputs(object) {
@@ -327,6 +357,17 @@ class MapMaker {
             if (self.enemies[i].name === name) return self.enemies[i];
         }
         return undefined;
+    }
+
+    selectRoom(index) {
+        var self = this;
+        self.scenario.rooms.forEach((room) => {
+            room.selected = false;
+        });
+
+        self.roomIndex = index;
+        if (self.roomIndex > -1)
+            self.scenario.rooms[self.roomIndex].selected = true;
     }
 
     createLabelDiv(parentElement, text) {
