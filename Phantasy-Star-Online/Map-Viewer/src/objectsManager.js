@@ -44,6 +44,7 @@ class ObjectsManager {
             },
             {
                 type: "door",
+                mapMakerClass: "DoorMapMarker",
                 shape: "rectangle",
                 colour: "lime",
             },
@@ -56,6 +57,7 @@ class ObjectsManager {
             },
             {
                 type: "laser",
+                mapMakerClass: "LaserMapMarker",
                 shape: "rectangle",
                 colour: "purple",
             },
@@ -108,6 +110,11 @@ class ObjectsManager {
                 size: 32,
             },
         ];
+
+        this.objects.forEach((obj) => {
+            if (obj.mapMakerClass === undefined)
+                obj.mapMakerClass = "BaseMapMarker";
+        });
 
         var objectsTable = document.createElement("table");
         var objectsTableHeaderRow = document.createElement("tr");

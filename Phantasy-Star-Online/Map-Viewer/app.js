@@ -9,6 +9,7 @@ var mapSelector = new MapSelector(scenarioSelector, enemiesInfo);
 var toggleManager = new ToggleManager();
 var objectsManagers = new ObjectsManager();
 var mapMaker = new MapMaker();
+var modal = new Modal();
 
 window.addEventListener(
     "resize",
