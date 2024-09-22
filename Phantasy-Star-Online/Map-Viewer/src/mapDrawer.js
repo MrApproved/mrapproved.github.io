@@ -12,6 +12,7 @@ class MapDrawer {
     speedRunMode;
     objectsManager;
     enableMaker;
+    roomImages;
 
     constructor() {
         this.position = new Position();
@@ -19,6 +20,7 @@ class MapDrawer {
         this.drag = false;
         this.speedRunMode = false;
         this.enableMaker = false;
+        this.roomImages = [];
     }
 
     init(canvas, enableMaker) {
@@ -96,9 +98,11 @@ class MapDrawer {
         //self.mapRooms = new Array();
 
         for (let i = 0; i < self.scenario.rooms.length; i++) {
-            var room = self.scenario.rooms[i];
-            room.image = new Image();
-            room.image.src = room.src;
+            // var room = self.scenario.rooms[i];
+            self.roomImages[i] = new Image();
+            self.roomImages[i].src = self.scenario.rooms[i].src;
+            // room.image = new Image();
+            // room.image.src = room.src;
             //self.mapRooms.push(room);
         }
 
@@ -109,7 +113,7 @@ class MapDrawer {
         var self = this;
 
         if (self.scenario !== undefined) {
-            self.scenario.rooms.forEach((room) => {
+            self.scenario.rooms.forEach((room, i) => {
                 if (room.order !== undefined && room.order > 0)
                     ctx.globalAlpha = 1;
                 else ctx.globalAlpha = 0.25;
@@ -125,18 +129,25 @@ class MapDrawer {
                     ctx.shadowBlur = 0;
                 }
 
+                var roomImage = self.roomImages[i];
                 ctx.drawImage(
-                    room.image,
+                    roomImage,
                     self.position.x -
-                        self.calculateCentreOffset(room.image.width),
+                        self.calculateCentreOffset(roomImage.width),
                     self.position.y -
-                        self.calculateCentreOffset(room.image.height),
-                    room.image.width * self.zoom,
-                    room.image.height * self.zoom
+                        self.calculateCentreOffset(roomImage.height),
+                    roomImage.width * self.zoom,
+                    roomImage.height * self.zoom
                 );
 
                 ctx.shadowColor = undefined;
                 ctx.shadowBlur = 0;
+            });
+
+            self.scenario.rooms.forEach((room, i) => {
+                if (room.order !== undefined && room.order > 0)
+                    ctx.globalAlpha = 1;
+                else ctx.globalAlpha = 0.25;
 
                 if (room.order === undefined && self.speedRunMode === true)
                     return;
@@ -167,8 +178,11 @@ class MapDrawer {
                                         });
                                     }
                                 });
-                                if (wave.spawnLine !== undefined) {
-                                    self.drawWaveSpawnLine(ctx, wave.spawnLine);
+                                if (wave.spawnLines !== undefined) {
+                                    self.drawWaveSpawnLines(
+                                        ctx,
+                                        wave.spawnLines
+                                    );
                                 }
                                 if (wave.spawnBox !== undefined) {
                                     self.drawWaveSpawnBox(ctx, wave.spawnBox);
@@ -201,7 +215,7 @@ class MapDrawer {
 
     drawEnemy(ctx, enemy, enemyData, optional = false) {
         ctx.save();
-        if (optional) ctx.globalAlpha = 0.25;
+        if (optional === true) ctx.globalAlpha = 0.25;
         this.drawCircle(ctx, enemy.position, enemyData.colour, "#222", 10);
         ctx.restore();
     }
@@ -247,7 +261,10 @@ class MapDrawer {
                     ctx,
                     object.position,
                     object.positionOffset,
-                    getColour()
+                    getColour(),
+                    object.lineWidth !== undefined
+                        ? object.lineWidth
+                        : mapObject.lineWidth
                 );
             else if (mapObject.shape === "diamond")
                 this.drawDiamond(
@@ -271,8 +288,14 @@ class MapDrawer {
         this.drawCircle(ctx, floorButton.position, "yellow", "orange", 6);
     }
 
-    drawWaveSpawnLine(ctx, spawnLine) {
-        this.drawDashedLine(ctx, spawnLine.position, spawnLine.positionOffset);
+    drawWaveSpawnLines(ctx, spawnLines) {
+        spawnLines.forEach((spawnLine) => {
+            this.drawDashedLine(
+                ctx,
+                spawnLine.position,
+                spawnLine.positionOffset
+            );
+        });
     }
 
     drawWaveSpawnBox(ctx, spawnBox) {
@@ -366,7 +389,7 @@ class MapDrawer {
         ctx.setLineDash([]);
     }
 
-    drawLine(ctx, position, positionOffset, colour = "purple") {
+    drawLine(ctx, position, positionOffset, colour, lineWidth) {
         ctx.beginPath();
         ctx.moveTo(
             this.position.x + position.x * this.zoom,
@@ -376,7 +399,7 @@ class MapDrawer {
             this.position.x + positionOffset.x * this.zoom,
             this.position.y + positionOffset.y * this.zoom
         );
-        ctx.lineWidth = 10 * this.zoom;
+        ctx.lineWidth = lineWidth * this.zoom;
         ctx.strokeStyle = colour;
         ctx.stroke();
     }

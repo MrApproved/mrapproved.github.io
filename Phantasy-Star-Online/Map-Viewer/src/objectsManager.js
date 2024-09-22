@@ -46,6 +46,7 @@ class ObjectsManager {
                 type: "door",
                 mapMakerClass: "DoorMapMarker",
                 shape: "rectangle",
+                lineWidth: 10,
                 colour: "lime",
             },
             {
@@ -59,6 +60,7 @@ class ObjectsManager {
                 type: "laser",
                 mapMakerClass: "LaserMapMarker",
                 shape: "rectangle",
+                lineWidth: 10,
                 colour: "purple",
             },
             {
@@ -108,6 +110,13 @@ class ObjectsManager {
                 colour: "gray",
                 outlineColour: "red",
                 size: 32,
+            },
+            {
+                type: "warp_line",
+                mapMakerClass: "WarpLineMapMarker",
+                colour: "springgreen",
+                shape: "rectangle",
+                lineWidth: 4,
             },
         ];
 

@@ -78,6 +78,31 @@ class MapMaker {
 
             self.drawScenarioInfo();
         });
+
+        document
+            .getElementById("map-drawer-export")
+            .addEventListener("click", () => {
+                navigator.clipboard.writeText(self.scenario);
+                alert("Scenarion copied to clipboard");
+            });
+
+        document
+            .getElementById("map-drawer-edit")
+            .addEventListener("click", () => {
+                modal.display(
+                    {
+                        name: self.scenario.name,
+                        averageTime: self.scenario.averageTime,
+                    },
+                    (json) => {
+                        self.scenario = {
+                            ...self.scenario,
+                            ...JSON.parse(json),
+                        };
+                        self.drawScenarioInfo();
+                    }
+                );
+            });
     }
 
     populateDropdown(enemies, objects) {
@@ -130,17 +155,17 @@ class MapMaker {
 
     drawScenarioInfo() {
         var scenarioEle = document.getElementById("map-drawer-scenario");
-        var element = scenarioEle.getElementsByTagName("div")[0];
+        var element = scenarioEle.getElementsByTagName("div")[1];
         var self = this;
         self.scenario;
         element.innerHTML = "";
 
         var nameDiv = document.createElement("div");
-        nameDiv.innerHTML = self.scenario.name;
+        nameDiv.innerHTML = `Name: ${self.scenario.name}`;
         element.appendChild(nameDiv);
 
         var averageTimeDiv = document.createElement("div");
-        averageTimeDiv.innerHTML = self.scenario.averageTime;
+        averageTimeDiv.innerHTML = `Avg Time: ${self.scenario.averageTime}`;
         element.appendChild(averageTimeDiv);
 
         var roomsDiv = document.createElement("div");
@@ -171,7 +196,9 @@ class MapMaker {
             var addObjectButton = document.createElement("button");
 
             addObjectButton.innerHTML =
-                self.roomIndex === i ? "SELECTED" : "SELECT";
+                self.roomIndex === i && self.waveIndex === -1
+                    ? "SELECTED"
+                    : "SELECT";
 
             addObjectButton.addEventListener("click", () => {
                 self.selectRoom(i);
@@ -193,8 +220,14 @@ class MapMaker {
             var addWaveButton = document.createElement("button");
             addWaveButton.innerHTML = "+ WAVE";
             addWaveButton.addEventListener("click", () => {
-                if (room.waves === undefined) room.waves = [];
-                room.waves.push({ order: 100, encounters: [] });
+                if (self.scenario.rooms[i].waves === undefined)
+                    self.scenario.rooms[i].waves = [];
+                self.scenario.rooms[i].waves.push({
+                    order: self.scenario.rooms[i].waves.length + 1,
+                    active: true,
+                    optional: false,
+                    encounters: [],
+                });
                 self.drawScenarioInfo();
             });
 
@@ -212,6 +245,8 @@ class MapMaker {
                     {
                         optional: self.scenario.rooms[i].optional,
                         order: self.scenario.rooms[i].order,
+                        start: self.scenario.rooms[i].start,
+                        finish: self.scenario.rooms[i].finish,
                     },
                     (json) => {
                         self.scenario.rooms[i] = {
@@ -224,6 +259,7 @@ class MapMaker {
 
             element.appendChild(objectsDiv);
             element.appendChild(wavesDiv);
+            element.appendChild(document.createElement("br"));
         });
     }
 
@@ -263,8 +299,97 @@ class MapMaker {
         var self = this;
         if (room.waves !== undefined) {
             room.waves.forEach((wave, i) => {
+                var waveDiv = self.createLabelDiv(element, "Wave");
                 self.createLabelDiv(element, wave.order);
                 self.createLabelDiv(element, wave.optional);
+
+                var editButton = document.createElement("button");
+                editButton.innerHTML = "EDIT";
+
+                editButton.addEventListener("click", () => {
+                    modal.display(
+                        {
+                            optional:
+                                self.scenario.rooms[roomIndex].waves[i]
+                                    .optional,
+                            order: self.scenario.rooms[roomIndex].waves[i]
+                                .order,
+                            spawnBox:
+                                self.scenario.rooms[roomIndex].waves[i]
+                                    .spawnBox,
+                            spawnLines:
+                                self.scenario.rooms[roomIndex].waves[i]
+                                    .spawnLines,
+                        },
+                        (json) => {
+                            self.scenario.rooms[roomIndex].waves[i] = {
+                                ...self.scenario.rooms[roomIndex].waves[i],
+                                ...JSON.parse(json),
+                            };
+                        }
+                    );
+                });
+
+                var deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "DELETE";
+
+                deleteButton.addEventListener("click", () => {
+                    room.waves.splice(i, 1);
+                    self.drawScenarioInfo();
+                });
+
+                var spawnBoxButton = document.createElement("button");
+                spawnBoxButton.innerHTML =
+                    room.waves[i].spawnBox === undefined
+                        ? "+ SPAWNBOX"
+                        : "- SPAWNBOX";
+                spawnBoxButton.addEventListener("click", () => {
+                    if (room.waves[i].spawnBox === undefined) {
+                        room.waves[i].spawnBox = {
+                            position: new Position(),
+                            size: {
+                                x: 32,
+                                y: 32,
+                            },
+                        };
+                    } else {
+                        room.waves[i].spawnBox = undefined;
+                    }
+
+                    self.drawScenarioInfo();
+                });
+
+                var spawnLineButton = document.createElement("button");
+                spawnLineButton.innerHTML =
+                    room.waves[i].spawnLines === undefined
+                        ? "+ SPAWNLINE"
+                        : "- SPAWNLINE";
+                spawnLineButton.addEventListener("click", () => {
+                    if (room.waves[i].spawnLines === undefined) {
+                        room.waves[i].spawnLines = [
+                            {
+                                position: {
+                                    x: 0,
+                                    y: 0,
+                                },
+                                positionOffset: {
+                                    x: 32,
+                                    y: 32,
+                                },
+                            },
+                        ];
+                    } else {
+                        room.waves[i].spawnLines = undefined;
+                    }
+
+                    self.drawScenarioInfo();
+                });
+
+                waveDiv.appendChild(editButton);
+                waveDiv.appendChild(deleteButton);
+                waveDiv.appendChild(spawnBoxButton);
+                waveDiv.appendChild(spawnLineButton);
+
                 var encountersLabelDev = self.createLabelDiv(
                     element,
                     "Encounters"
@@ -273,7 +398,11 @@ class MapMaker {
                 var addEncounterButton = document.createElement("button");
                 addEncounterButton.innerHTML = "+ ENCOUNTER";
                 addEncounterButton.addEventListener("click", () => {
-                    wave.encounters.push({ order: 1, enemies: [] });
+                    wave.encounters.push({
+                        order: wave.encounters.length + 1,
+                        active: true,
+                        enemies: [],
+                    });
                     self.drawScenarioInfo();
                 });
 
@@ -284,6 +413,30 @@ class MapMaker {
                         element,
                         "Encounter"
                     );
+
+                    var encounterEditButton = document.createElement("button");
+                    encounterEditButton.innerHTML = "EDIT";
+                    encounterEditButton.addEventListener("click", () => {
+                        modal.display(
+                            {
+                                order: self.scenario.rooms[roomIndex].waves[i]
+                                    .encounters[j].order,
+                            },
+                            (json) => {
+                                self.scenario.rooms[roomIndex].waves[
+                                    i
+                                ].encounters[j] = {
+                                    ...self.scenario.rooms[roomIndex].waves[i]
+                                        .encounters[j],
+                                    ...JSON.parse(json),
+                                };
+
+                                self.drawScenarioInfo();
+                            }
+                        );
+                    });
+
+                    encounterLabelDiv.append(encounterEditButton);
 
                     var encounterSelectButton =
                         document.createElement("button");
@@ -326,10 +479,19 @@ class MapMaker {
     populateEncountersDiv(encounter, element) {
         var self = this;
         self.createLabelDiv(element, `Order: ${encounter.order}`);
-        self.createLabelDiv(element, `Optional: ${encounter.optional}`);
 
         encounter.enemies.forEach((enemy, i) => {
             var enemyDiv = self.createLabelDiv(element, enemy.name);
+
+            var editButton = document.createElement("button");
+            editButton.innerHTML = "EDIT";
+            editButton.addEventListener("click", () => {
+                modal.display(encounter.enemies[i], (json) => {
+                    encounter.enemies[i] = JSON.parse(json);
+                });
+            });
+
+            enemyDiv.append(editButton);
 
             var deleteButton = document.createElement("button");
             deleteButton.innerHTML = "DELETE";

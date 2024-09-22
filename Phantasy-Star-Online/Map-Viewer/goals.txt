@@ -14,8 +14,6 @@ Allow specific object types to be toggled on and off globally (being specific wi
 Objects can override settings like colour, outlineColour, size etc - DONE
 Allow placing of markers in a console window which can then be copied into the map structure file - DONE
 Implement speed run mode (only enable necessary objects and waves) - DONE
-Zoom should fit the entire map on load
-Display basic route for speed run
 Break classes down to allow better management
 MapMaker should store enemies against an object which the MapDrawer will invoke, this allows to see the placement of markers which will later be saved as a JSON map - DONE
 Allow Objects array to be created for MapMaker - DONE
@@ -26,9 +24,16 @@ Allow Wave Encounters array to be created - DONE
 Allow encounters array just like above - DONE
 Allow encounters to be modified - DONE
 Allow enemies to be added to encounters - DONE
-Allow properties to be modified - Create a basic modal javascript. Each specific map object should inherit "MapMarker" which has type and a position, then extra parts can be added to the specific object and it should have a EditProperties which will create a new Modal with specific contents
-Allow enemy properties to be modified
-Objects/Enemies should be MapEntity which contains a "Draw" method. The json can just populate the properties which it then uses
+Allow properties to be modified - Create a basic modal javascript. Each specific map object should inherit "MapMarker" which has type and a position, then extra parts can be added to the specific object and it should have a EditProperties which will create a new Modal with specific contents - DONE
+Allow enemy properties to be modified Position and Type - DONE
+Allow wave to be deleted/edit - DONE
+Allow spawn box to be created/edit/deleted for encounter - DONE
+Objects and Enemies dropdown in MapMaker should be absolute positioned - DONE
+Room images should be rendered first and then objects (this will always place things on top)
+May need to create spawnbox (different shapes or a list of lines) - 
+Zoom should fit the entire map on load
+Display basic route for speed run
+Door switch should become "Interactive Switch" not "Door switch", The colour can indicate that
 
 Investigate webpack.js to compile into one single file for github io site
 Create individual github repository to store the app

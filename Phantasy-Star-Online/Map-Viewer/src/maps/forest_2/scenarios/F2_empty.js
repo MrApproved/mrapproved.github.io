@@ -37,6 +37,9 @@ maps.forEach((map) => {
                 {
                     src: "assets/maps/forest_2/R11.png",
                 },
+                {
+                    src: "assets/maps/forest_2/R12.png",
+                },
             ],
         });
     }

@@ -6,6 +6,7 @@ class Modal {
     headerSpan;
     contentsDiv;
     okButton;
+    updateButton;
 
     activeObject;
 
@@ -38,9 +39,17 @@ class Modal {
             self.modalDiv.style.display = "none";
         });
 
+        self.updateButton = document.createElement("button");
+        self.updateButton.innerText = "UPDATE";
+
+        self.updateButton.addEventListener("click", () => {
+            self.updateMethod(self.contentsDiv.value);
+        });
+
         self.titleDiv.appendChild(self.headerSpan);
         self.titleDiv.appendChild(closeButton);
         self.titleDiv.appendChild(self.okButton);
+        self.titleDiv.appendChild(self.updateButton);
         self.modalDiv.appendChild(self.titleDiv);
         self.modalDiv.appendChild(self.contentsDiv);
 
