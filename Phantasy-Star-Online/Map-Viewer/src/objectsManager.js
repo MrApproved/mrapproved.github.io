@@ -115,8 +115,9 @@ class ObjectsManager {
                 type: "warp_line",
                 mapMakerClass: "WarpLineMapMarker",
                 colour: "springgreen",
-                shape: "rectangle",
-                lineWidth: 4,
+                shape: "dashedline",
+                size: 5,
+                dashSize: 2,
             },
         ];
 

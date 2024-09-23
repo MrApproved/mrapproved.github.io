@@ -91,9 +91,13 @@ class MapDrawer {
         self.position.x = (self.canvas.width / 2) * self.zoom;
         self.position.y = (self.canvas.height / 2) * self.zoom;
 
-        document.getElementById("average-time").innerHTML = `${Math.floor(
-            scenario.averageTime / 60
-        )}:${scenario.averageTime % 60}`;
+        var minutes = Math.floor(scenario.averageTime / 60);
+        var seconds = scenario.averageTime % 60;
+
+        if (seconds < 10) seconds = "0" + seconds;
+        document.getElementById(
+            "average-time"
+        ).innerHTML = `${minutes}:${seconds}`;
 
         //self.mapRooms = new Array();
 
@@ -274,6 +278,17 @@ class MapDrawer {
                     mapObject.outlineColour,
                     mapObject.size
                 );
+            else if (mapObject.shape === "dashedline")
+                this.drawDashedLine(
+                    ctx,
+                    object.position,
+                    object.positionOffset,
+                    getColour(),
+                    object.size !== undefined ? object.size : mapObject.size,
+                    object.dashSize !== undefined
+                        ? object.dashSize
+                        : mapObject.dashSize
+                );
         }
         ctx.restore();
 
@@ -404,9 +419,16 @@ class MapDrawer {
         ctx.stroke();
     }
 
-    drawDashedLine(ctx, position, positionOffset, colour = "white") {
+    drawDashedLine(
+        ctx,
+        position,
+        positionOffset,
+        colour = "white",
+        lineWidth = 1,
+        dashSize = 5
+    ) {
         ctx.beginPath();
-        ctx.setLineDash([5, 5]);
+        ctx.setLineDash([dashSize, dashSize]);
         ctx.moveTo(
             this.calculateXPosition(position.x),
             this.calculateYPosition(position.y)
@@ -416,6 +438,7 @@ class MapDrawer {
             this.calculateYPosition(positionOffset.y)
         );
         ctx.strokeStyle = colour;
+        ctx.lineWidth = lineWidth;
         ctx.stroke();
         ctx.setLineDash([]);
     }

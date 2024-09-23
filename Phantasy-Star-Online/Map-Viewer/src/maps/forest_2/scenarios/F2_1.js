@@ -2,7 +2,7 @@ maps.forEach((map) => {
     if (map.name === "Forest 2") {
         map.scenarios.push({
             name: "1",
-            averageTime: 114,
+            averageTime: 150,
             rooms: [
                 {
                     src: "assets/maps/forest_2/R1.png",
