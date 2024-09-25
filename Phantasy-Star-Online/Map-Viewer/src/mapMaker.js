@@ -22,6 +22,7 @@ class MapMaker {
         self.canvas = canvas;
         self.mapDrawer = mapDrawer;
         self.zoom = self.mapDrawer.zoom;
+        self.routeMaking = false;
         self.roomIndex = -1;
         self.waveIndex = -1;
         self.encounterIndex = -1;
@@ -43,7 +44,13 @@ class MapMaker {
                           self.enemiesDropDown.selectedIndex
                       ].text;
 
-            if (self.roomIndex !== -1) {
+            if (self.routeMaking === true) {
+                var position = new Position();
+                position.x = x;
+                position.y = y;
+                if (self.scenario.route === undefined) self.scenario.route = [];
+                self.scenario.route.push(position);
+            } else if (self.roomIndex !== -1) {
                 if (self.waveIndex !== -1) {
                     var newEnemy = {};
                     newEnemy.name = selectedValue;
@@ -80,10 +87,13 @@ class MapMaker {
         });
 
         document
-            .getElementById("map-drawer-export")
+            .getElementById("map-drawer-unselect")
             .addEventListener("click", () => {
-                navigator.clipboard.writeText(self.scenario);
-                alert("Scenarion copied to clipboard");
+                self.routeMaking = false;
+                self.roomIndex = -1;
+                self.waveIndex = -1;
+                self.encounterIndex = -1;
+                self.drawScenarioInfo();
             });
 
         document
@@ -93,13 +103,15 @@ class MapMaker {
                     {
                         name: self.scenario.name,
                         averageTime: self.scenario.averageTime,
+                        route: self.scenario.route,
                     },
                     (json) => {
-                        self.scenario = {
-                            ...self.scenario,
-                            ...JSON.parse(json),
-                        };
-                        self.drawScenarioInfo();
+                        var properties = JSON.parse(json);
+                        (self.scenario.name = properties.name),
+                            (self.scenario.averageTime =
+                                properties.averageTime),
+                            (self.scenario.route = properties.route),
+                            self.drawScenarioInfo();
                     }
                 );
             });
@@ -167,6 +179,21 @@ class MapMaker {
         var averageTimeDiv = document.createElement("div");
         averageTimeDiv.innerHTML = `Avg Time: ${self.scenario.averageTime}`;
         element.appendChild(averageTimeDiv);
+
+        var routeDiv = self.createLabelDiv(element, "Route");
+        var routeButton = document.createElement("button");
+        routeButton.innerHTML =
+            self.routeMaking === true ? "SELECTED" : "SELECT";
+
+        routeButton.addEventListener("click", () => {
+            self.routeMaking = true;
+            self.roomIndex = -1;
+            self.waveIndex = -1;
+            self.encounterIndex = -1;
+            self.drawScenarioInfo();
+        });
+
+        routeDiv.append(routeButton);
 
         var roomsDiv = document.createElement("div");
         roomsDiv.innerHTML = "Rooms";

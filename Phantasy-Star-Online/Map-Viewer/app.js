@@ -25,6 +25,7 @@ window.dispatchEvent(new Event("resize"));
 function draw() {
     ctx.globalAlpha = 1;
     ctx.fillStyle = "#000";
+    ctx.lineWidth = 1;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     mapDrawer.draw(ctx);
 }

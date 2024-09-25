@@ -99,15 +99,9 @@ class MapDrawer {
             "average-time"
         ).innerHTML = `${minutes}:${seconds}`;
 
-        //self.mapRooms = new Array();
-
         for (let i = 0; i < self.scenario.rooms.length; i++) {
-            // var room = self.scenario.rooms[i];
             self.roomImages[i] = new Image();
             self.roomImages[i].src = self.scenario.rooms[i].src;
-            // room.image = new Image();
-            // room.image.src = room.src;
-            //self.mapRooms.push(room);
         }
 
         self.mapMaker.setScenario(self.scenario);
@@ -202,6 +196,8 @@ class MapDrawer {
                     });
                 }
             });
+
+            self.drawRoute(ctx, self.scenario.route);
         }
     }
 
@@ -215,6 +211,22 @@ class MapDrawer {
 
     calculateCentreOffset(length) {
         return (length * this.zoom) / 2;
+    }
+
+    drawRoute(ctx, route) {
+        var self = this;
+        if (route !== undefined) {
+            for (var i = 0; i < route.length; i++) {
+                if (i < route.length)
+                    self.drawLine(
+                        ctx,
+                        self.scenario.route[i],
+                        self.scenario.route[i + 1],
+                        "#F0F",
+                        5
+                    );
+            }
+        }
     }
 
     drawEnemy(ctx, enemy, enemyData, optional = false) {

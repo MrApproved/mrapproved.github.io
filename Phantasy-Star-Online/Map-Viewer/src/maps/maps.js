@@ -68,7 +68,6 @@ var maps = [
     },
     {
         name: "Forest 2",
-        selected: "true",
         enemies: [
             {
                 name: "Rag Rappy",
