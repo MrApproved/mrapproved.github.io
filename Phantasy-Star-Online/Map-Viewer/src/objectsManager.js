@@ -114,10 +114,10 @@ class ObjectsManager {
             {
                 type: "warp_line",
                 mapMakerClass: "WarpLineMapMarker",
-                colour: "springgreen",
+                colour: "rgba(0,255,127,0.5)",
                 shape: "dashedline",
                 size: 5,
-                dashSize: 2,
+                dashSize: 5,
             },
         ];
 

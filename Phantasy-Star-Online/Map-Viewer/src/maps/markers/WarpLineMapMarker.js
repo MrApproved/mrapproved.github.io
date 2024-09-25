@@ -5,7 +5,6 @@ class WarpLineMapMarker extends BaseMapMarker {
     constructor(position) {
         super();
         this.type = "warp_line";
-        this.colour = "springgreen";
         this.positionOffset = new Position();
         this.positionOffset.x = position.x;
         this.positionOffset.y = position.y + 32;

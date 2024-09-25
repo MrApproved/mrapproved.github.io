@@ -901,7 +901,6 @@ maps.forEach((map) => {
                                 x: 164,
                                 y: 121,
                             },
-                            colour: "springgreen",
                             positionOffset: {
                                 x: 174,
                                 y: 80,
@@ -1112,7 +1111,6 @@ maps.forEach((map) => {
                                 x: 213,
                                 y: 97,
                             },
-                            colour: "springgreen",
                             positionOffset: {
                                 x: 148,
                                 y: 165,
@@ -1124,7 +1122,6 @@ maps.forEach((map) => {
                                 x: 235,
                                 y: -18,
                             },
-                            colour: "springgreen",
                             positionOffset: {
                                 x: 180,
                                 y: -56,
@@ -1265,7 +1262,7 @@ maps.forEach((map) => {
                 {
                     src: "assets/maps/forest_2/R3.png",
                     active: true,
-                    selected: true,
+                    selected: false,
                     finish: true,
                     order: 8,
                     objects: [
@@ -1667,13 +1664,126 @@ maps.forEach((map) => {
                                 x: 203,
                                 y: -68,
                             },
-                            colour: "springgreen",
                             positionOffset: {
                                 x: 208,
                                 y: 0,
                             },
                         },
                     ],
+                },
+            ],
+            route: [
+                {
+                    x: -303,
+                    y: -96,
+                },
+                {
+                    x: -284,
+                    y: -10,
+                },
+                {
+                    x: -268,
+                    y: 4,
+                },
+                {
+                    x: -238,
+                    y: -6,
+                },
+                {
+                    x: -226,
+                    y: -46,
+                },
+                {
+                    x: -236,
+                    y: -128,
+                },
+                {
+                    x: -226,
+                    y: -173,
+                },
+                {
+                    x: -201,
+                    y: -296,
+                },
+                {
+                    x: -92,
+                    y: -222,
+                },
+                {
+                    x: -34,
+                    y: -118,
+                },
+                {
+                    x: -3,
+                    y: -112,
+                },
+                {
+                    x: 13,
+                    y: -92,
+                },
+                {
+                    x: 14,
+                    y: -37,
+                },
+                {
+                    x: -43,
+                    y: 138,
+                },
+                {
+                    x: -98,
+                    y: 118,
+                },
+                {
+                    x: -100,
+                    y: -18,
+                },
+                {
+                    x: -107,
+                    y: 126,
+                },
+                {
+                    x: -55,
+                    y: 148,
+                },
+                {
+                    x: -2,
+                    y: 260,
+                },
+                {
+                    x: 69,
+                    y: 238,
+                },
+                {
+                    x: 125,
+                    y: 194,
+                },
+                {
+                    x: 163,
+                    y: 122,
+                },
+                {
+                    x: 179,
+                    y: 84,
+                },
+                {
+                    x: 305,
+                    y: -40,
+                },
+                {
+                    x: 335,
+                    y: -132,
+                },
+                {
+                    x: 310,
+                    y: -166,
+                },
+                {
+                    x: 217,
+                    y: -218,
+                },
+                {
+                    x: 101,
+                    y: -251,
                 },
             ],
         });

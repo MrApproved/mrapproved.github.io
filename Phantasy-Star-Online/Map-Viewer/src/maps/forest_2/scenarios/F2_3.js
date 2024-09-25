@@ -701,9 +701,438 @@ maps.forEach((map) => {
                     ],
                 },
                 {
+                    src: "assets/maps/forest_2/R10.png",
+                    active: true,
+                    selected: false,
+                    order: 7,
+                    objects: [
+                        {
+                            type: "label",
+                            value: "7",
+                            position: {
+                                x: -363,
+                                y: 140,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -315,
+                                y: 224,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -301,
+                                y: 232,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -286,
+                                y: 240,
+                            },
+                        },
+                        {
+                            type: "capsule",
+                            position: {
+                                x: -220,
+                                y: 222,
+                            },
+                        },
+                        {
+                            type: "door_switch",
+                            colour: "yellow",
+                            position: {
+                                x: -202,
+                                y: 264,
+                            },
+                        },
+                        {
+                            type: "door",
+                            position: {
+                                x: -178,
+                                y: 258,
+                            },
+                            colour: "yellow",
+                            positionOffset: {
+                                x: -178,
+                                y: 290,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -344,
+                                y: 90,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -345,
+                                y: 102,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: -333,
+                                y: 94,
+                            },
+                        },
+                        {
+                            type: "warp",
+                            position: {
+                                x: -311,
+                                y: 54,
+                            },
+                        },
+                        {
+                            type: "warp_line",
+                            position: {
+                                x: -312,
+                                y: 56,
+                            },
+                            positionOffset: {
+                                x: 190,
+                                y: 88,
+                            },
+                        },
+                    ],
+                    waves: [
+                        {
+                            order: 1,
+                            active: true,
+                            optional: true,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Rag Rappy",
+                                            position: {
+                                                x: -269,
+                                                y: 170,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: {
+                                                x: -322,
+                                                y: 188,
+                                            },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: {
+                                                x: -267,
+                                                y: 220,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: {
+                                                x: -280,
+                                                y: 155,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: {
+                                                x: -246,
+                                                y: 222,
+                                            },
+                                        },
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: {
+                                                x: -266,
+                                                y: 158,
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            order: 2,
+                            active: true,
+                            optional: false,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Hildebear",
+                                            position: {
+                                                x: -261,
+                                                y: 154,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Booma",
+                                            position: {
+                                                x: -267,
+                                                y: 178,
+                                            },
+                                        },
+                                        {
+                                            name: "Booma",
+                                            position: {
+                                                x: -282,
+                                                y: 185,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Gigobooma",
+                                            position: {
+                                                x: -226,
+                                                y: 119,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 4,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Hildebear",
+                                            position: {
+                                                x: -308,
+                                                y: 174,
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    src: "assets/maps/forest_2/R9.png",
+                    active: true,
+                    selected: false,
+                    objects: [
+                        {
+                            type: "label",
+                            value: "8",
+                            position: {
+                                x: 145,
+                                y: 34,
+                            },
+                        },
+                        {
+                            type: "warp",
+                            position: {
+                                x: 224,
+                                y: 95,
+                            },
+                        },
+                        {
+                            type: "warp",
+                            position: {
+                                x: 223,
+                                y: -11,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: 323,
+                                y: 80,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: 337,
+                                y: 82,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: 319,
+                                y: 91,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: 329,
+                                y: 92,
+                            },
+                        },
+                        {
+                            type: "item_box",
+                            position: {
+                                x: 317,
+                                y: 102,
+                            },
+                        },
+                        {
+                            type: "laser_switch",
+                            colour: "red",
+                            position: {
+                                x: 179,
+                                y: 98,
+                            },
+                        },
+                        {
+                            type: "warp_line",
+                            position: {
+                                x: 223,
+                                y: 96,
+                            },
+                            positionOffset: {
+                                x: -313,
+                                y: 80,
+                            },
+                        },
+                        {
+                            type: "warp_line",
+                            position: {
+                                x: 222,
+                                y: -11,
+                            },
+                            positionOffset: {
+                                x: 180,
+                                y: -50,
+                            },
+                        },
+                    ],
+                    order: 8,
+                    waves: [
+                        {
+                            order: 1,
+                            active: true,
+                            optional: false,
+                            encounters: [
+                                {
+                                    order: 1,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Monest",
+                                            position: {
+                                                x: 257,
+                                                y: 44,
+                                            },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: {
+                                                x: 224,
+                                                y: 132,
+                                            },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: {
+                                                x: 235,
+                                                y: 135,
+                                            },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: {
+                                                x: 246,
+                                                y: 138,
+                                            },
+                                        },
+                                        {
+                                            name: "Mothmant",
+                                            position: {
+                                                x: 258,
+                                                y: 137,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 2,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Gobooma",
+                                            position: {
+                                                x: 309,
+                                                y: 57,
+                                            },
+                                        },
+                                        {
+                                            name: "Gigobooma",
+                                            position: {
+                                                x: 211,
+                                                y: 33,
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    order: 3,
+                                    active: true,
+                                    enemies: [
+                                        {
+                                            name: "Savage Wolf",
+                                            position: {
+                                                x: 215,
+                                                y: 21,
+                                            },
+                                        },
+                                        {
+                                            name: "Barbarous Wolf",
+                                            position: {
+                                                x: 311,
+                                                y: 80,
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
                     src: "assets/maps/forest_2/R3.png",
                     active: true,
-                    selected: true,
+                    selected: false,
                     order: 9,
                     finish: true,
                     objects: [
@@ -883,438 +1312,6 @@ maps.forEach((map) => {
                                 x: 199,
                                 y: -171,
                             },
-                        },
-                    ],
-                },
-                {
-                    src: "assets/maps/forest_2/R9.png",
-                    active: true,
-                    selected: false,
-                    objects: [
-                        {
-                            type: "label",
-                            value: "8",
-                            position: {
-                                x: 145,
-                                y: 34,
-                            },
-                        },
-                        {
-                            type: "warp",
-                            position: {
-                                x: 224,
-                                y: 95,
-                            },
-                        },
-                        {
-                            type: "warp",
-                            position: {
-                                x: 223,
-                                y: -11,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: 323,
-                                y: 80,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: 337,
-                                y: 82,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: 319,
-                                y: 91,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: 329,
-                                y: 92,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: 317,
-                                y: 102,
-                            },
-                        },
-                        {
-                            type: "laser_switch",
-                            colour: "red",
-                            position: {
-                                x: 179,
-                                y: 98,
-                            },
-                        },
-                        {
-                            type: "warp_line",
-                            position: {
-                                x: 223,
-                                y: 96,
-                            },
-                            colour: "springgreen",
-                            positionOffset: {
-                                x: -313,
-                                y: 80,
-                            },
-                        },
-                        {
-                            type: "warp_line",
-                            position: {
-                                x: 222,
-                                y: -11,
-                            },
-                            colour: "springgreen",
-                            positionOffset: {
-                                x: 180,
-                                y: -50,
-                            },
-                        },
-                    ],
-                    order: 8,
-                    waves: [
-                        {
-                            order: 1,
-                            active: true,
-                            optional: false,
-                            encounters: [
-                                {
-                                    order: 1,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Monest",
-                                            position: {
-                                                x: 257,
-                                                y: 44,
-                                            },
-                                        },
-                                        {
-                                            name: "Mothmant",
-                                            position: {
-                                                x: 224,
-                                                y: 132,
-                                            },
-                                        },
-                                        {
-                                            name: "Mothmant",
-                                            position: {
-                                                x: 235,
-                                                y: 135,
-                                            },
-                                        },
-                                        {
-                                            name: "Mothmant",
-                                            position: {
-                                                x: 246,
-                                                y: 138,
-                                            },
-                                        },
-                                        {
-                                            name: "Mothmant",
-                                            position: {
-                                                x: 258,
-                                                y: 137,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 2,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Gobooma",
-                                            position: {
-                                                x: 309,
-                                                y: 57,
-                                            },
-                                        },
-                                        {
-                                            name: "Gigobooma",
-                                            position: {
-                                                x: 211,
-                                                y: 33,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 3,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Savage Wolf",
-                                            position: {
-                                                x: 215,
-                                                y: 21,
-                                            },
-                                        },
-                                        {
-                                            name: "Barbarous Wolf",
-                                            position: {
-                                                x: 311,
-                                                y: 80,
-                                            },
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    src: "assets/maps/forest_2/R10.png",
-                    active: true,
-                    selected: false,
-                    order: 7,
-                    objects: [
-                        {
-                            type: "label",
-                            value: "7",
-                            position: {
-                                x: -363,
-                                y: 140,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -315,
-                                y: 224,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -301,
-                                y: 232,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -286,
-                                y: 240,
-                            },
-                        },
-                        {
-                            type: "capsule",
-                            position: {
-                                x: -220,
-                                y: 222,
-                            },
-                        },
-                        {
-                            type: "door_switch",
-                            colour: "yellow",
-                            position: {
-                                x: -202,
-                                y: 264,
-                            },
-                        },
-                        {
-                            type: "door",
-                            position: {
-                                x: -178,
-                                y: 258,
-                            },
-                            colour: "yellow",
-                            positionOffset: {
-                                x: -178,
-                                y: 290,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -344,
-                                y: 90,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -345,
-                                y: 102,
-                            },
-                        },
-                        {
-                            type: "item_box",
-                            position: {
-                                x: -333,
-                                y: 94,
-                            },
-                        },
-                        {
-                            type: "warp",
-                            position: {
-                                x: -311,
-                                y: 54,
-                            },
-                        },
-                        {
-                            type: "warp_line",
-                            position: {
-                                x: -312,
-                                y: 56,
-                            },
-                            colour: "springgreen",
-                            positionOffset: {
-                                x: 190,
-                                y: 88,
-                            },
-                        },
-                    ],
-                    waves: [
-                        {
-                            order: 1,
-                            active: true,
-                            optional: true,
-                            encounters: [
-                                {
-                                    order: 1,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Rag Rappy",
-                                            position: {
-                                                x: -269,
-                                                y: 170,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 2,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Gobooma",
-                                            position: {
-                                                x: -322,
-                                                y: 188,
-                                            },
-                                        },
-                                        {
-                                            name: "Booma",
-                                            position: {
-                                                x: -267,
-                                                y: 220,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 3,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Savage Wolf",
-                                            position: {
-                                                x: -280,
-                                                y: 155,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 4,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Barbarous Wolf",
-                                            position: {
-                                                x: -246,
-                                                y: 222,
-                                            },
-                                        },
-                                        {
-                                            name: "Barbarous Wolf",
-                                            position: {
-                                                x: -266,
-                                                y: 158,
-                                            },
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        {
-                            order: 2,
-                            active: true,
-                            optional: false,
-                            encounters: [
-                                {
-                                    order: 1,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Hildebear",
-                                            position: {
-                                                x: -261,
-                                                y: 154,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 2,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Booma",
-                                            position: {
-                                                x: -267,
-                                                y: 178,
-                                            },
-                                        },
-                                        {
-                                            name: "Booma",
-                                            position: {
-                                                x: -282,
-                                                y: 185,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 3,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Gigobooma",
-                                            position: {
-                                                x: -226,
-                                                y: 119,
-                                            },
-                                        },
-                                    ],
-                                },
-                                {
-                                    order: 4,
-                                    active: true,
-                                    enemies: [
-                                        {
-                                            name: "Hildebear",
-                                            position: {
-                                                x: -308,
-                                                y: 174,
-                                            },
-                                        },
-                                    ],
-                                },
-                            ],
                         },
                     ],
                 },
@@ -1537,13 +1534,142 @@ maps.forEach((map) => {
                                 x: 201,
                                 y: -63,
                             },
-                            colour: "springgreen",
                             positionOffset: {
                                 x: 201,
                                 y: 10,
                             },
                         },
                     ],
+                },
+            ],
+            route: [
+                {
+                    x: -99,
+                    y: -8,
+                },
+                {
+                    x: -106,
+                    y: 122,
+                },
+                {
+                    x: -55,
+                    y: 140,
+                },
+                {
+                    x: -30,
+                    y: 116,
+                },
+                {
+                    x: -1,
+                    y: 10,
+                },
+                {
+                    x: 25,
+                    y: -20,
+                },
+                {
+                    x: 100,
+                    y: -28,
+                },
+                {
+                    x: 14,
+                    y: -24,
+                },
+                {
+                    x: 4,
+                    y: -102,
+                },
+                {
+                    x: -43,
+                    y: -128,
+                },
+                {
+                    x: -96,
+                    y: -228,
+                },
+                {
+                    x: -203,
+                    y: -298,
+                },
+                {
+                    x: -232,
+                    y: -166,
+                },
+                {
+                    x: -238,
+                    y: -124,
+                },
+                {
+                    x: -230,
+                    y: -61,
+                },
+                {
+                    x: -228,
+                    y: -33,
+                },
+                {
+                    x: -234,
+                    y: -15,
+                },
+                {
+                    x: -245,
+                    y: -1,
+                },
+                {
+                    x: -246,
+                    y: 23,
+                },
+                {
+                    x: -226,
+                    y: 119,
+                },
+                {
+                    x: -258,
+                    y: 129,
+                },
+                {
+                    x: -274,
+                    y: 109,
+                },
+                {
+                    x: -307,
+                    y: 98,
+                },
+                {
+                    x: -313,
+                    y: 57,
+                },
+                {
+                    x: 188,
+                    y: 85,
+                },
+                {
+                    x: 302,
+                    y: -37,
+                },
+                {
+                    x: 320,
+                    y: -77,
+                },
+                {
+                    x: 336,
+                    y: -127,
+                },
+                {
+                    x: 321,
+                    y: -159,
+                },
+                {
+                    x: 240,
+                    y: -197,
+                },
+                {
+                    x: 187,
+                    y: -231,
+                },
+                {
+                    x: 101,
+                    y: -247,
                 },
             ],
         });

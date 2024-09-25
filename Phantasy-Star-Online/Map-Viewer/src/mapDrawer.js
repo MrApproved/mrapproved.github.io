@@ -216,14 +216,19 @@ class MapDrawer {
     drawRoute(ctx, route) {
         var self = this;
         if (route !== undefined) {
+            var colourIncrement = 255 / route.length;
+            ctx.globalAlpha = 0.8;
             for (var i = 0; i < route.length; i++) {
-                if (i < route.length)
-                    self.drawLine(
+                if (i < route.length - 1)
+                    self.drawDashedLine(
                         ctx,
                         self.scenario.route[i],
                         self.scenario.route[i + 1],
-                        "#F0F",
-                        5
+                        `rgb(${colourIncrement * i}, ${
+                            255 - colourIncrement * i
+                        }, 0)`,
+                        7,
+                        15
                     );
             }
         }
