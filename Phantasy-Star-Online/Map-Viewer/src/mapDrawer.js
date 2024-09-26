@@ -104,7 +104,8 @@ class MapDrawer {
             self.roomImages[i].src = self.scenario.rooms[i].src;
         }
 
-        self.mapMaker.setScenario(self.scenario);
+        if(self.enableMaker)
+            self.mapMaker.setScenario(self.scenario);
     }
 
     draw(ctx) {

@@ -18,7 +18,7 @@ class RoomManager {
             var roomEle = document.createElement("div");
             roomEle.className = "room-contents";
             var roomNameContainer = document.createElement("div");
-            roomNameContainer.innerHTML = `<span>Room: ${room.order}</span>`;
+            roomNameContainer.innerHTML = `<span>Room: ${room.order !== undefined ? room.order : "optional"}</span>`;
             var roomNameContainerActivator = document.createElement("input");
             roomNameContainer.appendChild(roomNameContainerActivator);
             roomNameContainerActivator.type = "checkbox";

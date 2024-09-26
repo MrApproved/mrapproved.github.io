@@ -8,7 +8,6 @@ var scenarioSelector = new ScenarioSelector(roomManager);
 var mapSelector = new MapSelector(scenarioSelector, enemiesInfo);
 var toggleManager = new ToggleManager();
 var objectsManagers = new ObjectsManager();
-var mapMaker = new MapMaker();
 var modal = new Modal();
 
 window.addEventListener(
@@ -37,3 +36,7 @@ setInterval(function () {
 mapDrawer.init(canvas, true);
 mapDrawer.setObjectsManager(objectsManagers);
 mapSelector.init(maps);
+
+function enableMapMaker() {
+    document.getElementById("map-drawer-scenario").style = 'display:block;';
+}

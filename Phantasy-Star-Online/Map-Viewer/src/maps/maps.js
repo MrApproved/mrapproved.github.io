@@ -133,7 +133,4 @@ var maps = [
         ],
         scenarios: [],
     },
-    {
-        name: "Blank",
-    },
 ];

@@ -1066,7 +1066,7 @@ maps.forEach((map) => {
                         },
                     ],
                     active: true,
-                    selected: true,
+                    selected: false,
                 },
                 {
                     src: "assets/maps/forest_1/R10.png",
