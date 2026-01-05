@@ -1,0 +1,890 @@
+<html>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #4e3b28;
+    }
+
+    button {
+        background-color: #007dc1;
+        border-radius: 28px;
+        border: 1px solid #124d77;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        padding: 16px 31px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #154682;
+        margin: 0 auto;
+    }
+
+    button:hover {
+        background-color: #0061a7;
+    }
+
+    button:active {
+        position: relative;
+        top: 1px;
+    }
+
+    h1 {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .power {
+        font: "consolas";
+        font-size: 18px;
+        font-style: strong;
+    }
+
+    .grass {
+        background-color: #70c050;
+    }
+
+    .fire {
+        background-color: #f04020;
+    }
+
+    .water {
+        background-color: #3090f0;
+    }
+
+    .bug {
+        background-color: #a0b020;
+    }
+
+    .flying {
+        background-color: #8090f0;
+    }
+
+    .normal {
+        background-color: #a0a090;
+    }
+
+    .poison {
+        background-color: #a05090;
+    }
+
+    .electric {
+        background-color: #f0c030;
+    }
+
+    #holder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    #board {
+        margin: auto;
+        position: absolute;
+        display: grid;
+        grid-template-columns: repeat(3, 33vh);
+        grid-template-rows: repeat(3, 33vh);
+        background-color: #71563b;
+    }
+
+    #board>div {
+        padding: 3px;
+        background-color: #EFCB68;
+        display: grid;
+        place-items: center;
+        position: relative;
+    }
+
+    #board>div>img {
+        width: 100%;
+        z-index: 0;
+    }
+
+    #board>div>.card-colour {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: none;
+        pointer-events: none;
+    }
+
+    #board>div>.one {
+        background-color: #56b4fc;
+    }
+
+    #board>div>.two {
+        background-color: #fc5656;
+    }
+
+    .cards-holder {
+        height: 90vh;
+        max-width: 300px;
+        position: fixed;
+        left: 0;
+        top: 5vh;
+        background-color: #3090f0;
+        border: solid 5px #56b4fc;
+        border-radius: 5px;
+    }
+
+    .cards-holder.player-two {
+        left: unset;
+        right: 0;
+        background-color: #f07d30;
+        border: solid 5px #fc9e56;
+    }
+
+    .cards-holder>div {
+        height: 20%;
+    }
+
+    .cards-holder>div.used {
+        background-color: #0c1b27;
+    }
+
+    .cards-holder>div:hover {
+        background-color: #56b4fc;
+    }
+
+    .cards-holder>div.used:hover {
+        background-color: #0c1b27;
+        cursor: not-allowed;
+    }
+
+    .cards-holder>div.selected {
+        background-color: #9bd3ff;
+    }
+
+    .cards-holder>div>img {
+        object-fit: cover;
+        height: 100%;
+    }
+
+    #card-collection {
+        top: 0;
+        position: fixed;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(5, 20vh);
+        grid-template-rows: repeat(5, 20vh);
+        background-color: #654423;
+        height: 100vh;
+        overflow: auto;
+    }
+
+    #card-collection img {
+        width: 100%;
+    }
+
+    #card-collection .card-container {
+        position: relative;
+        background-color: #3090f0;
+        border: solid 5px #56b4fc;
+        border-radius: 5px;
+    }
+
+    #card-collection .card-container div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 1.5em;
+        background-color: #9bd3ff;
+        padding: 3px;
+    }
+
+    #dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #000000;
+        background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 183, 255, 0.1) 100%);
+        z-index: 1;
+    }
+
+    #dialog .container {
+        padding: 9px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        border-radius: 5px;
+        background-color: #d8ebff;
+        border: solid 5px #56b4fc;
+    }
+
+    #dialog .container .button-container {
+        text-align: center;
+    }
+
+    #dialog .container .button-container.cards {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    #dialog .container .button-container.cards img {
+        flex: 0 1 auto;
+        width: 20%;
+    }
+
+    #dialog .container .button-container button {
+        margin: 6px;
+    }
+
+    #dialog .container img {
+        max-width: 150px;
+    }
+
+    #hard-delete {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 25px;
+        height: 25px;
+        padding: 3px;
+        z-index: 10;
+    }
+
+    #hard-delete:active {
+        position: absolute;
+        top: unset;
+    }
+</style>
+
+<body>
+    <div id="holder">
+        <div id="board">
+        </div>
+    </div>
+
+    <button id="hard-delete" onclick="HardReset()">X</button>
+</body>
+
+<script src="cards.js"></script>
+
+<script>
+    class Game {
+        constructor() {
+            this.board = document.getElementById("board");
+            this.player = Players.ONE;
+
+            this.playerOneHand = new GameHand(Players.ONE);
+            this.playerTwoHand = new GameHand(Players.TWO);
+            this.playerDeck = new PlayersDeck();
+            this.PopulateBotsHand();
+
+            this.playerCards = [];
+            this.handCreater = new HandCreater(this.player, this.playerDeck, this.playerCards, this.playerOneHand, this.playerTwoHand);
+        }
+
+        Reset() {
+            this.board.innerHTML = "";
+            this.playerCards = [];
+
+            this.playerOneHand = new GameHand(Players.ONE);
+            this.playerTwoHand = new GameHand(Players.TWO);
+            this.PopulateBotsHand();
+
+            this.handCreater = new HandCreater(this.player, this.playerDeck, this.playerCards, this.playerOneHand, this.playerTwoHand);
+        }
+
+        PopulateBotsHand() {
+            for (var i = 0; i < 5; i++) {
+                this.playerTwoHand.CreateCard(cards[Math.floor(Math.random() * cards.length)].id, i);
+            }
+        }
+    }
+
+    class Board {
+        constructor(player, playerOneHand, playerTwoHand, playerDeck) {
+            this.player = player;
+            this.playerOneHand = playerOneHand;
+            this.playerTwoHand = playerTwoHand;
+            this.playerDeck = playerDeck;
+            this.segments = Array.from({ length: 3 }, () => Array(3).fill(undefined));
+            this.CreateSegments();
+        }
+
+        CreateSegments() {
+            for (var y = 0; y < 3; y++) {
+                for (var x = 0; x < 3; x++) {
+                    var boardPlacement = document.createElement("div");
+                    var cardColour = document.createElement("div");
+                    cardColour.className = "card-colour";
+                    var imageHolder = document.createElement("img");
+                    boardPlacement.appendChild(cardColour);
+                    boardPlacement.appendChild(imageHolder);
+                    boardPlacement.attributes["x"] = x;
+                    boardPlacement.attributes["y"] = y;
+
+                    this.segments[x][y] = new Segment(boardPlacement, -1, Players.NONE, x, y);
+                    this.AddBoardListener(boardPlacement, this.segments[x][y]);
+                    board.appendChild(boardPlacement);
+                }
+            }
+        }
+
+        AddBoardListener(boardPlacement, segment) {
+            var board = this;
+            boardPlacement.addEventListener('click', function eventHandler(e) {
+                var selectedCard = board.player == Players.ONE ? board.playerOneHand.hand.GetSelectedCard() : board.playerTwoHand.hand.GetSelectedCard();
+                if (selectedCard !== undefined) {
+                    e.target.removeEventListener('click', eventHandler);
+                    var img = e.target.querySelector('img');
+                    img.src = `Cards/${selectedCard.cardId}.png`;
+                    var cardColour = e.target.querySelector('div');
+                    segment.ChangeOwner(board.player);
+                    segment.cardId = selectedCard.cardId;
+                    board.CheckIfCardsShouldChangeOwner(segment);
+
+                    var cardHandIndex = board.playerOneHand.hand.GetIndexSelectedCard();
+                    if (board.player == Players.ONE) {
+                        var cardHolder = document.getElementsByClassName("cards-holder player-one");
+                        cardHolder[0].getElementsByTagName("div")[cardHandIndex].className += " used";
+                    }
+
+                    var playerOneOwned = 0;
+                    var playerTwoOwned = 0;
+                    for (var y = 0; y < board.segments.length; y++) {
+                        for (var x = 0; x < board.segments[y].length; x++) {
+                            var owner = board.segments[x][y].owner;
+                            playerOneOwned += owner === Players.ONE ? 1 : 0;
+                            playerTwoOwned += owner === Players.TWO ? 1 : 0;
+                        }
+                    }
+
+                    if ((playerOneOwned + playerTwoOwned) == 9) {
+                        if (playerOneOwned > playerTwoOwned)
+                            new WinnerCardDialog(board.playerTwoHand, board.playerDeck);
+                        else
+                            new LoserDialog(board.playerDeck);
+                    }
+                    else {
+                        selectedCard.Use();
+                        board.player == Players.ONE ? board.playerOneHand.hand.SelectNextCard() : board.playerTwoHand.hand.SelectNextCard();
+                        board.player = board.player == Players.ONE ? Players.TWO : Players.ONE;
+
+                        if (board.player == Players.TWO) {
+                            var selectedSegment = undefined;
+                            while (selectedSegment === undefined) {
+                                var randomSegment = board.segments[Math.floor(Math.random() * board.segments.length)][Math.floor(Math.random() * board.segments.length)];
+                                if (randomSegment.owner == Players.NONE)
+                                    selectedSegment = randomSegment;
+                            }
+
+                            selectedSegment.element.click();
+                        }
+                    }
+                }
+            });
+        }
+
+        CheckIfCardsShouldChangeOwner(segment) {
+            if (segment.y != 0) this.CheckDirection(segment, Directions.NORTH);
+            if (segment.y != 2) this.CheckDirection(segment, Directions.SOUTH);
+            if (segment.x != 2) this.CheckDirection(segment, Directions.EAST);
+            if (segment.x != 0) this.CheckDirection(segment, Directions.WEST);
+        }
+
+        CheckDirection(segment, direction) {
+            switch (direction) {
+                case Directions.NORTH: {
+                    var targetedSegment = this.segments[segment.x][segment.y - 1];
+                    if (targetedSegment.cardId != -1 && targetedSegment.owner != this.player)
+                        if (this.PowerCheck(this.FindCard(segment.cardId).power.north, this.FindCard(targetedSegment.cardId).power.south)) {
+                            targetedSegment.ChangeOwner(this.player);
+                        }
+                };
+                    break;
+                case Directions.EAST: {
+                    var targetedSegment = this.segments[segment.x + 1][segment.y];
+                    if (targetedSegment.cardId != -1 && targetedSegment.owner != this.player)
+                        if (this.PowerCheck(this.FindCard(segment.cardId).power.east, this.FindCard(targetedSegment.cardId).power.west)) {
+                            targetedSegment.ChangeOwner(this.player);
+                        }
+                };
+                    break;
+                case Directions.SOUTH: {
+                    var targetedSegment = this.segments[segment.x][segment.y + 1];
+                    if (targetedSegment.cardId != -1 && targetedSegment.owner != this.player)
+                        if (this.PowerCheck(this.FindCard(segment.cardId).power.south, this.FindCard(targetedSegment.cardId).power.north)) {
+                            targetedSegment.ChangeOwner(this.player);
+                        }
+                };
+                    break;
+                case Directions.WEST: {
+                    var targetedSegment = this.segments[segment.x - 1][segment.y];
+                    if (targetedSegment.cardId != -1 && targetedSegment.owner != this.player)
+                        if (this.PowerCheck(this.FindCard(segment.cardId).power.west, this.FindCard(targetedSegment.cardId).power.east)) {
+                            targetedSegment.ChangeOwner(this.player);
+                        }
+                }
+                    break;
+            }
+        }
+
+        PowerCheck(attacker, defender) {
+            return attacker > defender
+        }
+
+        FindCard(id) {
+            return cards.find(i => {
+                return i.id == id
+            });
+        }
+    }
+
+    class Segment {
+        constructor(element, cardId, owner, x, y) {
+            this.element = element;
+            this.colour = element.querySelector('div');
+            this.cardId = cardId;
+            this.owner = owner;
+            this.x = x;
+            this.y = y;
+        }
+
+        ChangeOwner(owner) {
+            this.owner = owner;
+            this.colour.className = `card-colour ${owner}`;
+        }
+    }
+
+    class GameHand {
+
+        constructor(player) {
+            this.hand = new Hand(player);
+            var cardsHolder = document.createElement("div");
+            cardsHolder.className = `cards-holder player-${player}`;
+
+            for (var i = 0; i < 5; i++) {
+                this.hand.CreateCard(cardsHolder, i);
+            }
+
+            document.getElementsByTagName("body")[0].appendChild(cardsHolder);
+
+            this.hand.SelectCard(0);
+        }
+
+        CreateCard(cardId, index) {
+            this.hand.PopulateCard(cardId, index);
+        }
+
+        Reset() {
+            this.hand.Reset();
+        }
+    }
+
+    class Hand {
+        constructor(player) {
+            this.cards = [];
+            this.element = undefined;
+            this.player = player;
+        }
+
+        CreateCard(element, i) {
+            var cardHolder = document.createElement("div");
+            cardHolder.className = "card-holder";
+            element.appendChild(cardHolder);
+            this.cards[i] = new HandCard(cardHolder, this.player == Players.TWO);
+
+            cardHolder.addEventListener('click', (e) => {
+                this.SelectCard(i);
+            })
+        }
+
+        PopulateCard(cardId, index) {
+            this.cards[index].SetCard(cardId);
+        }
+
+        SelectCard(index) {
+            var handCard = this.cards[index];
+            this.cards.forEach((c) => { c.SetSelect(false); })
+            if (this.cards[index].used == false)
+                this.cards[index].SetSelect(true);
+        }
+
+        GetSelectedCard() {
+            return this.cards.find((c) => c.selected);
+        }
+
+        GetIndexSelectedCard() {
+            return this.cards.findIndex((c) => c.selected);
+        }
+
+        SelectNextCard() {
+            this.cards.find((c) => c.used == false).SetSelect(true);
+        }
+
+        Reset() {
+            this.cards.forEach((c) => {
+                c.Reset();
+            });
+        }
+    }
+
+    class HandCard {
+
+        constructor(cardHolder, hidden) {
+            this.cardId = -1;
+            this.cardHolder = cardHolder;
+            this.displayClassName = this.cardHolder.className;
+            this.used = false;
+            this.selected = false;
+            this.hidden = hidden;
+
+            this.imgHolder = document.createElement("img");
+            this.imgHolder.src = `Cards/cover.png`;
+            cardHolder.appendChild(this.imgHolder);
+        }
+
+        Reset() {
+            this.imgHolder.src = `Cards/cover.png`;
+        }
+
+        SetCard(cardId) {
+            this.cardId = cardId;
+            this.imgHolder.src = `Cards/${this.hidden ? 'cover' : cardId}.png`;
+        }
+
+        SetSelect(state) {
+            this.selected = state;
+            this.UpdateDisplayClasses();
+        }
+
+        Use() {
+            this.used = true;
+            this.SetSelect(false);
+        }
+
+        UpdateDisplayClasses() {
+            var displayClass = this.displayClassName;
+            displayClass += `${this.selected && !this.used ? ' selected' : ''}`;
+            displayClass += `${this.used ? ' used' : ''}`;
+            this.cardHolder.className = displayClass;
+        }
+    }
+
+    class HandCreater {
+        constructor(player, playerDeck, playerCards, playerOneHand, playerTwoHand) {
+            this.cardCollection = undefined;
+            this.cards = [];
+            this.player = player;
+            this.playerDeck = playerDeck;
+            this.playerCards = playerCards;
+            this.playerOneHand = playerOneHand;
+            this.playerTwoHand = playerTwoHand;
+            this.SetupPlayerDecks();
+            this.Setup();
+        }
+
+        SetupPlayerDecks() {
+            this.cards = [];
+            this.playerDeck.unlockedCards.forEach((c, i) => {
+                this.cards.push(new HandCreaterCard(c.id, c.amount));
+            });
+        }
+
+        Setup() {
+            var handCreater = this;
+            this.playerCardIncrement = 0;
+            this.cardCollection = document.createElement("div");
+            this.cardCollection.id = "card-collection";
+            this.cards.forEach((c, i) => {
+                var card = c;
+                var cardContainer = document.createElement("div");
+                cardContainer.className = "card-container";
+                var amountDiv = document.createElement("div");
+                amountDiv.innerText = card.amount;
+                var cardImg = document.createElement("img");
+                cardImg.src = `Cards/${c.id}.png`;
+                cardContainer.appendChild(cardImg);
+                cardContainer.appendChild(amountDiv);
+                handCreater.cardCollection.appendChild(cardContainer);
+
+                cardContainer.addEventListener("click", () => {
+                    if (card.amount > 0) {
+                        card.Select();
+                        amountDiv.innerText = card.amount;
+                        handCreater.playerCards[handCreater.playerCardIncrement] = c.id;
+                        handCreater.playerOneHand.CreateCard(c.id, handCreater.playerCardIncrement);
+                        handCreater.playerCardIncrement++;
+
+                        if (handCreater.playerCardIncrement == 5) {
+                            var dialog = new DecisionDialog("Continue with selected hand?");
+                            dialog.SetButtons([
+                                new DicisionDialogEvent("No", () => { handCreater.Reset(); }),
+                                new DicisionDialogEvent("Yes", () => { handCreater.cardCollection.remove(); new Board(handCreater.player, handCreater.playerOneHand, handCreater.playerTwoHand, handCreater.playerDeck); })
+                            ]);
+                        }
+                    }
+                });
+            });
+
+            document.getElementById("holder").append(this.cardCollection);
+        }
+
+        Reset() {
+            this.playerOneHand.Reset();
+            this.cardCollection.remove();
+            this.SetupPlayerDecks();
+            this.Setup();
+        }
+    }
+
+    class HandCreaterCard {
+        constructor(id, amount) {
+            this.id = id;
+            this.amount = amount;
+        }
+
+        Select() {
+            this.amount--;
+        }
+    }
+
+    class PlayersDeck {
+        constructor() {
+            this.storageKey = "card_collection";
+            this.unlockedCards = [];
+            this.LoadCardsFromStorage();
+        }
+
+        LoadCardsFromStorage() {
+            navigator.storage.persist();
+
+            if (!localStorage.getItem(this.storageKey)) {
+                this.DefaultCards();
+            }
+            else {
+                this.unlockedCards = JSON.parse(localStorage.getItem(this.storageKey));
+            }
+        }
+
+        UnlockCard(id) {
+            var unlockedCard = this.unlockedCards.find(c => {
+                return c.id == id
+            });
+
+            if (unlockedCard !== undefined)
+                unlockedCard.amount += 1;
+            else
+                this.unlockedCards[this.unlockedCards.length] = new PlayersDeckCard(id, 1)
+
+            this.unlockedCards.sort((a, b) => a.id - b.id);
+        }
+
+        RemoveCard(id) {
+            var unlockedCard = this.unlockedCards.find(c => {
+                return c.id == id
+            });
+
+            if (unlockedCard.amount > 0)
+                unlockedCard.amount -= 1;
+        }
+
+        TotalCards() {
+            var totalCards = 0;
+            this.unlockedCards.forEach(c => {
+                totalCards += c.amount;
+            });
+            return totalCards;
+        }
+
+        DefaultCards() {
+            this.unlockedCards = [];
+            this.UnlockCard(1);
+            this.UnlockCard(4);
+            this.UnlockCard(7);
+            this.UnlockCard(10);
+            this.UnlockCard(13);
+            localStorage.setItem(this.storageKey, JSON.stringify(this.unlockedCards));
+        }
+    }
+
+    class PlayersDeckCard {
+        constructor(id, amount) {
+            this.id = id;
+            this.amount = amount;
+        }
+    }
+
+    class Alert {
+        constructor(title, buttonLabel, event) {
+            this.title = title;
+            this.buttonLabel = buttonLabel;
+            this.event = event;
+
+            this.Setup();
+        }
+
+        Setup() {
+            var alertElement = document.createElement("div");
+            alertElement.id = "alert"
+            var title = document.createElement("h1");
+            var button = document.createElement("button");
+            title.innerText = this.title;
+            button.innerText = this.buttonLabel;
+
+            alertElement.append(title);
+            alertElement.append(button);
+
+            document.getElementsByTagName("body")[0].append(alertElement);
+
+            button.addEventListener('click', () => {
+                alertElement.remove();
+            })
+
+            setTimeout(() => {
+                alertElement.className = "show";
+            }, 0);
+        }
+    }
+
+    class DecisionDialog {
+        constructor(title, innerContent) {
+            this.title = title;
+            this.dialogContainer;
+            this.dialog;
+
+            this.dialogContainer = document.createElement("div");
+            this.dialogContainer.id = "dialog";
+            this.dialog = document.createElement("div");
+            this.dialog.className = "container";
+            var title = document.createElement("h1");
+            title.innerText = this.title;
+            this.dialog.appendChild(title);
+            if (innerContent !== undefined)
+                this.dialog.appendChild(innerContent);
+
+            this.dialogContainer.appendChild(this.dialog);
+            document.getElementsByTagName("body")[0].append(this.dialogContainer);
+        }
+
+        SetButtons(buttons) {
+            var buttonContainer = document.createElement("div");
+            buttonContainer.className = "button-container";
+            this.dialog.appendChild(buttonContainer);
+
+            buttons.forEach((b, i) => {
+                var button = document.createElement("button");
+                button.innerText = b.label;
+                button.addEventListener('click', () => {
+                    b.event();
+                    this.dialogContainer.remove();
+                });
+                buttonContainer.appendChild(button);
+            });
+        }
+
+        SetCardRewards(cards) {
+            var buttonContainer = document.createElement("div");
+            buttonContainer.className = "button-container cards";
+            this.dialog.appendChild(buttonContainer);
+
+            cards.forEach((c, i) => {
+                var img = document.createElement("img");
+                img.src = `Cards/${c.cardId}.png`;
+                img.addEventListener('click', () => {
+                    c.event();
+                    this.dialogContainer.remove();
+                    game.Reset();
+                });
+                buttonContainer.appendChild(img);
+            });
+        }
+    }
+
+    class DicisionDialogEvent {
+        constructor(label, event) {
+            this.label = label;
+            this.event = event;
+        }
+    }
+
+    class CardDialogEvent {
+        constructor(cardId, event) {
+            this.cardId = cardId;
+            this.event = event;
+        }
+    }
+
+    class WinnerCardDialog {
+        constructor(botHand, playerDeck) {
+            var dialog = new DecisionDialog("You win!");
+            dialog.SetCardRewards(
+                [
+                    new CardDialogEvent(botHand.hand.cards[0].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[0].cardId); }),
+                    new CardDialogEvent(botHand.hand.cards[1].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[1].cardId); }),
+                    new CardDialogEvent(botHand.hand.cards[2].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[2].cardId); }),
+                    new CardDialogEvent(botHand.hand.cards[3].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[3].cardId); }),
+                    new CardDialogEvent(botHand.hand.cards[4].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[4].cardId); })
+                ]);
+        }
+    }
+
+    class LoserDialog {
+        constructor(playerDeck) {
+            var div = document.createElement("div");
+            var content = document.createElement("h4");
+            var img = document.createElement("img");
+
+            if (playerDeck.TotalCards() > 5) {
+                var card = undefined;
+                while (card === undefined) {
+                    var playerCard = playerDeck.unlockedCards[Math.floor(Math.random() * playerDeck.unlockedCards.length)];
+                    if (playerCard.amount > 0)
+                        card = playerCard;
+                }
+
+                content.innerText = `Your opponent has taken your ${card.name}`;
+                img.src = `Cards/${card.id}.png`;
+                playerDeck.RemoveCard(card.id);
+
+            }
+            else {
+                content.innerText = `You get off easy this time.`;
+            }
+
+            div.appendChild(content);
+            div.appendChild(img);
+            var dialog = new DecisionDialog(`You lose!`, div);
+            dialog.SetButtons(
+                [
+                    new DicisionDialogEvent("Continue", () => {
+                        game.Reset();
+                    })
+                ]);
+        }
+    }
+
+    const Players = {
+        NONE: "none",
+        ONE: "one",
+        TWO: "two"
+    };
+
+    const Directions = {
+        NORTH: "north",
+        EAST: "east",
+        SOUTH: "south",
+        WEST: "west"
+    }
+
+    var game = new Game();
+
+    function HardReset() {
+        if (confirm("Remove all cards you have earned and reset to the 5 default cards?")) {
+            game.playerDeck.DefaultCards();
+            window.location = window.location;
+        }
+    }
+
+</script>
+
+</html>
