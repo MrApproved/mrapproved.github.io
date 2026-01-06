@@ -677,6 +677,7 @@
                 this.unlockedCards[this.unlockedCards.length] = new PlayersDeckCard(id, 1)
 
             this.unlockedCards.sort((a, b) => a.id - b.id);
+            this.SaveCards();
         }
 
         RemoveCard(id) {
@@ -686,6 +687,8 @@
 
             if (unlockedCard.amount > 0)
                 unlockedCard.amount -= 1;
+
+            this.SaveCards();
         }
 
         TotalCards() {
@@ -703,6 +706,10 @@
             this.UnlockCard(7);
             this.UnlockCard(10);
             this.UnlockCard(13);
+            this.SaveCards();
+        }
+
+        SaveCards() {
             localStorage.setItem(this.storageKey, JSON.stringify(this.unlockedCards));
         }
     }
