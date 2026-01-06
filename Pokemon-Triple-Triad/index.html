@@ -835,16 +835,20 @@
             var img = document.createElement("img");
 
             if (playerDeck.TotalCards() > 5) {
-                var card = undefined;
-                while (card === undefined) {
+                var playerCard = undefined;
+                while (playerCard === undefined) {
                     var playerCard = playerDeck.unlockedCards[Math.floor(Math.random() * playerDeck.unlockedCards.length)];
                     if (playerCard.amount > 0)
-                        card = playerCard;
+                        playerCard = playerCard;
                 }
 
+                var card = cards.find(i => {
+                    return i.id == playerCard.id
+                });
+
                 content.innerText = `Your opponent has taken your ${card.name}`;
-                img.src = `Cards/${card.id}.png`;
-                playerDeck.RemoveCard(card.id);
+                img.src = `Cards/${playerCard.id}.png`;
+                playerDeck.RemoveCard(playerCard.id);
 
             }
             else {
