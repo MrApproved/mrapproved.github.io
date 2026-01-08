@@ -227,9 +227,18 @@
         flex-flow: row wrap;
     }
 
-    #dialog .container .button-container.cards img {
+    #dialog .container .button-container.cards div {
+        position: relative;
         flex: 0 1 auto;
         width: 20%;
+    }
+
+    #dialog .container .button-container.cards div #caught {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 25px;
+        height: 25px;
     }
 
     #dialog .container .button-container button {
@@ -253,6 +262,13 @@
     #hard-delete:active {
         position: absolute;
         top: unset;
+    }
+
+    #holder #total-cards {
+        position: fixed;
+        left: 12px;
+        top: 12px;
+        padding: 6px;
     }
 </style>
 
@@ -595,6 +611,7 @@
             this.playerCardIncrement = 0;
             this.cardCollection = document.createElement("div");
             this.cardCollection.id = "card-collection";
+
             this.cards.forEach((c, i) => {
                 var card = c;
                 var cardContainer = document.createElement("div");
@@ -625,6 +642,12 @@
                     }
                 });
             });
+
+            var totalCards = document.createElement("div");
+            totalCards.id = "total-cards";
+            totalCards.className = "card-container";
+            totalCards.textContent = `${this.cards.length}/${cards.length}`;
+            this.cardCollection.append(totalCards);
 
             document.getElementById("holder").append(this.cardCollection);
         }
@@ -795,14 +818,25 @@
             this.dialog.appendChild(buttonContainer);
 
             cards.forEach((c, i) => {
+                var div = document.createElement("div");
+
                 var img = document.createElement("img");
                 img.src = `Cards/${c.cardId}.png`;
-                img.addEventListener('click', () => {
+
+                if (c.caught) {
+                    var caughtIcon = document.createElement("img");
+                    caughtIcon.id = "caught";
+                    caughtIcon.src = `caught.png`;
+                    div.append(caughtIcon);
+                }
+
+                div.addEventListener('click', () => {
                     c.event();
                     this.dialogContainer.remove();
                     game.Reset();
                 });
-                buttonContainer.appendChild(img);
+                div.append(img);
+                buttonContainer.appendChild(div);
             });
         }
     }
@@ -815,9 +849,18 @@
     }
 
     class CardDialogEvent {
-        constructor(cardId, event) {
+        constructor(cardId, event, playerDeck) {
             this.cardId = cardId;
             this.event = event;
+            this.caught = this.AlreadyUnlocked(playerDeck);
+        }
+
+        AlreadyUnlocked(playerDeck) {
+            var card = playerDeck.unlockedCards.find(i => {
+                return i.id == this.cardId
+            });
+
+            return card !== undefined;
         }
     }
 
@@ -826,11 +869,11 @@
             var dialog = new DecisionDialog("You win!");
             dialog.SetCardRewards(
                 [
-                    new CardDialogEvent(botHand.hand.cards[0].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[0].cardId); }),
-                    new CardDialogEvent(botHand.hand.cards[1].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[1].cardId); }),
-                    new CardDialogEvent(botHand.hand.cards[2].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[2].cardId); }),
-                    new CardDialogEvent(botHand.hand.cards[3].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[3].cardId); }),
-                    new CardDialogEvent(botHand.hand.cards[4].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[4].cardId); })
+                    new CardDialogEvent(botHand.hand.cards[0].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[0].cardId); }, playerDeck),
+                    new CardDialogEvent(botHand.hand.cards[1].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[1].cardId); }, playerDeck),
+                    new CardDialogEvent(botHand.hand.cards[2].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[2].cardId); }, playerDeck),
+                    new CardDialogEvent(botHand.hand.cards[3].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[3].cardId); }, playerDeck),
+                    new CardDialogEvent(botHand.hand.cards[4].cardId, () => { playerDeck.UnlockCard(botHand.hand.cards[4].cardId); }, playerDeck)
                 ]);
         }
     }
