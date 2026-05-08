@@ -1,0 +1,102 @@
+body {
+ font-family: "Roboto", sans-serif;
+ color: #eee;
+ background-color: #192653;
+}
+
+#background {
+ top: 0;
+ left: 0;
+ position: fixed;
+ width: 100%;
+ height: 100%;
+ background-image: url("background.gif");
+ background-repeat: no-repeat;
+ background-position: center center;
+ background-size: auto 100vh;
+ z-index: -1;
+}
+
+input {
+ all: unset;
+ color: #eee;
+ border-bottom: solid 1px #eee;
+ width: 100%;
+}
+
+button {
+ min-width: 75px;
+ height: 24px;
+ color: #eee;
+ padding: 3px;
+ font-weight: bold;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ position: relative;
+ display: inline-block;
+ outline: none;
+ border-radius: 3px;
+ border: none;
+ background: #d90429;
+}
+
+button:hover {
+ background-color: #ef233c;
+}
+
+button:active {
+ top: 1px;
+}
+
+.noselect {
+ -webkit-touch-callout: none;
+ -webkit-user-select: none;
+ -khtml-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
+}
+
+#card-library {
+ display: grid;
+ grid-template-columns: repeat(1, 1fr);
+ grid-gap: 9px;
+}
+
+#card-library img {
+ max-width: 100%;
+ transition: transform 0.2s;
+ cursor: pointer;
+}
+
+#card-library img:hover {
+ transform: scale(1.02);
+}
+
+select.series option {
+ font-weight: bold;
+}
+
+select.series option.set {
+ font-weight: initial;
+ padding-left: 15px;
+}
+
+@media (min-width: 350px) {
+ #card-library {
+  grid-template-columns: repeat(2, 1fr);
+ }
+}
+
+
+@media (min-width: 700px) {
+ #card-library {
+  grid-template-columns: repeat(3, 1fr);
+ }
+}
+
+@media (min-width: 1000px) {
+ #card-library {
+  grid-template-columns: repeat(4, 1fr);
+ }
+}

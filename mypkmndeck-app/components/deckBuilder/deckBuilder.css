@@ -1,0 +1,223 @@
+#deck {
+ background-color: #ce4b4b;
+ border: solid 3px #333;
+ border-radius: 9px;
+ width: 300px;
+ position: fixed;
+ right: -290px;
+ height: 90%;
+ top: 5%;
+ bottom: 5%;
+ transition: all 0.2s;
+ padding-bottom: 9px;
+}
+
+#deck.expanded {
+ right: 15px;
+}
+
+#deck .expand {
+ display: initial;
+}
+
+#deck.expanded .expand {
+ display: none;
+}
+
+#deck .shrink {
+ display: none;
+}
+
+#deck.expanded .shrink {
+ display: initial;
+}
+
+#deck input {
+ all: unset;
+ position: absolute;
+ height: 30px;
+ font-size: 24px;
+ margin: 0 0 0 9px;
+ border-bottom: solid 1px #d2d2d2;
+ width: calc(100% - 105px);
+}
+
+#deck #cards {
+ overflow-y: scroll;
+ width: 300px;
+ height: calc(100% - 30px);
+ top: 0;
+ position: relative;
+}
+
+#deck .card-container {
+ width: inherit;
+ position: relative;
+}
+
+#deck .card-container .delete {
+ cursor: pointer;
+ position: absolute;
+ top: 9px;
+ right: 9px;
+ background-color: #f00;
+ border: solid #000 3px;
+ border-radius: 3px;
+}
+
+#deck .card-container img {
+ width: inherit;
+ position: absolute;
+ transition: 0.2s;
+}
+
+#deck .card-container img.selected {
+ z-index: 1;
+ scale: 1.01;
+}
+
+#deck #slider {
+ cursor: pointer;
+ position: relative;
+ top: 9px;
+ left: -30px;
+ width: 30px;
+ height: 30px;
+ background-color: #ce4b4b;
+ border: solid 3px #333;
+ border-radius: 9px;
+ z-index: 1;
+}
+
+#deck .menu {
+ width: 96px;
+ height: 32px;
+ display: table;
+ float: right;
+}
+
+#deck .menu div {
+ display: table-cell;
+ cursor: pointer;
+}
+
+#deck .menu #file {
+ display: none;
+}
+
+#deck.maximised {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: unset;
+ width: 100%;
+ height: 100%;
+ overflow-y: auto;
+ border: none;
+ border-radius: 0;
+ z-index: 3;
+ padding-bottom: unset;
+}
+
+#deck.maximised #slider {
+ display: none;
+}
+
+#deck.maximised #cards {
+ width: 100%;
+ position: unset;
+ height: fit-content;
+ top: unset;
+ overflow-y: initial;
+ display: grid;
+ grid-template-columns: repeat(1, 1fr);
+ grid-gap: 9px;
+}
+
+@media (min-width: 350px) {
+ #deck.maximised #cards {
+  grid-template-columns: repeat(2, 1fr);
+ }
+}
+
+
+@media (min-width: 700px) {
+ #deck.maximised #cards {
+  grid-template-columns: repeat(3, 1fr);
+ }
+}
+
+@media (min-width: 1000px) {
+ #deck.maximised #cards {
+  grid-template-columns: repeat(4, 1fr);
+ }
+}
+
+#deck.maximised #cards .card-container {
+ top: unset !important;
+}
+
+#deck.maximised #cards .card-container img {
+ width: 100%;
+ position: initial;
+}
+
+#statistics {
+ transition: all 0.2s;
+ position: fixed;
+ bottom: -50px;
+ left: 15px;
+ padding: 6px;
+ background-color: #ce4b4b;
+ border: solid 3px #333;
+ border-radius: 9px;
+ max-width: 90vw;
+}
+
+#statistics.expanded {
+ bottom: 0;
+}
+
+#statistics .expand {
+ display: initial;
+}
+
+#statistics.expanded .expand {
+ display: none;
+}
+
+#statistics .shrink {
+ display: none;
+}
+
+#statistics.expanded .shrink {
+ display: initial;
+}
+
+#statistics h1 {
+ font-size: 12pt;
+ margin: 3px 0;
+}
+
+#statistics ul {
+ padding: 0;
+ margin: 0;
+ white-space: nowrap;
+ overflow-x: auto;
+}
+
+#statistics li {
+ display: inline;
+}
+
+#statistics .toggle {
+ cursor: pointer;
+ width: 32px;
+ height: 32px;
+ position: absolute;
+ left: 8px;
+ top: -32px;
+ background-color: #ce4b4b;
+ border: solid 3px #333;
+ border-radius: 9px;
+}

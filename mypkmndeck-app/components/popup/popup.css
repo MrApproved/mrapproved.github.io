@@ -1,0 +1,41 @@
+#popup {
+ display: none;
+ z-index: 5;
+}
+
+#popup.show {
+ display: block;
+ position: fixed;
+ width: 100%;
+ height: 100%;
+ top: 0;
+ left: 0;
+ background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popup #contents {
+ position: relative;
+ width: 100%;
+ max-width: 600px;
+ margin: calc((100vh - (600px + 18px)) / 2) auto;
+ height: 600px;
+ background-color: rgba(0, 0, 0, 0.55);
+ padding: 9px;
+ border-radius: 9px;
+}
+
+#popup #contents h1 {
+ margin: unset;
+ margin-bottom: 9px;
+ border-bottom: solid 1px #fff;
+}
+
+#popup #contents #close {
+ position: absolute;
+ right: 9px;
+ top: 9px;
+ width: 32px;
+ height: 32px;
+ color: #fff;
+ cursor: pointer;
+}
