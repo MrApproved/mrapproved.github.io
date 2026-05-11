@@ -10,11 +10,11 @@ const DeckBuilder = {
  sliderElement: HTMLElement,
  deckSegment: Number,
  totalCards: Number,
- apiUrl: String,
+ cardsRepository: CardsRepository,
  deckStatistics: DeckStatistics,
  deck: Deck,
- initialise(apiUrl) {
-  this.apiUrl = apiUrl;
+ initialise(cardsRepository) {
+  this.cardsRepository = cardsRepository;
   this.deckElement = document.createElement("div");
   this.deckElement.id = "deck";
   this.deckElement.className = "expanded";
@@ -149,7 +149,7 @@ const DeckBuilder = {
    card.imageSrc !== undefined
     ? card.imageSrc
     : `${card.series}/${card.set}/images/${card.cardNumber}.jpg`;
-  img.src = `${this.apiUrl}resources/${imgSrc}`;
+  img.src = this.cardsRepository.resource(imgSrc);
   cardContainer.style.top = cardIndex * this.deckSegment + "px";
 
   let remove = document.createElement("div");

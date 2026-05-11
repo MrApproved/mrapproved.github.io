@@ -24,6 +24,14 @@
  border-radius: 9px;
 }
 
+@media (max-height: 650px) {
+ #popup #contents {
+  max-width: unset;
+  margin: unset;
+  height: 100%;
+ }
+}
+
 #popup #contents h1 {
  margin: unset;
  margin-bottom: 9px;
@@ -32,7 +40,7 @@
 
 #popup #contents #close {
  position: absolute;
- right: 9px;
+ right: 16px;
  top: 9px;
  width: 32px;
  height: 32px;

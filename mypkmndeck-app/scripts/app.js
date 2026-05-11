@@ -1,14 +1,19 @@
-const apiUrl = 'https://mypkmncards-api.azurewebsites.net/';
+const apiUrl = "https://mypkmncards-api.azurewebsites.net/";
 
+const cardsRepository = Object.create(CardsRepository);
 const deckBuilder = Object.create(DeckBuilder);
-deckBuilder.initialise(apiUrl);
 const filter = Object.create(Filter);
-filter.initialise(apiUrl, deckBuilder);
+
+cardsRepository.initialise(() => {
+ deckBuilder.initialise(cardsRepository);
+ filter.initialise(cardsRepository, deckBuilder);
+});
 
 const popup = Object.create(Popup);
 popup.initialise();
-popup.render("Welcome", 
-    `<h4>V1</h4>
+popup.render(
+ "Welcome",
+ `<h4>V1</h4>
     <div>
     <p>Welcome to Pokémon Deck Builder. Here you can search the entire Pokémon card database, 
     add & remove cards from your deck, name your deck and export & import your deck 
@@ -22,5 +27,5 @@ popup.render("Welcome",
         <li>pkmncard.com</li>
         <li>Pokemontcg.com</li>
     </ul>
-    </div>`
+    </div>`,
 );

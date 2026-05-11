@@ -1,9 +1,5 @@
 const Filter = {
  cards: [],
- series: [],
- types: [],
- colours: [],
- stages: [],
  element: HTMLElement,
  formElement: HTMLElement,
  nameElement: HTMLElement,
@@ -19,14 +15,10 @@ const Filter = {
  searchElement: HTMLElement,
  toggleElement: HTMLElement,
  deckBuilder: DeckBuilder,
- apiUrl: String,
- async loadApiValues(action) {
-  var data = await fetch(`${this.apiUrl}${action}`);
-  return await data.json();
- },
+ cardsRepository: CardsRepository,
 
- async initialise(apiUrl, deckBuilder) {
-    this.apiUrl = apiUrl;
+ async initialise(cardsRepository, deckBuilder) {
+  this.cardsRepository = cardsRepository;
   this.deckBuilder = deckBuilder;
 
   this.element = document.createElement("div");
@@ -38,11 +30,6 @@ const Filter = {
   this.element.appendChild(loadingDiv);
 
   document.getElementsByTagName("body")[0].appendChild(this.element);
-
-  this.series = await this.loadApiValues("series/");
-  this.types = await this.loadApiValues("types/");
-  this.colours = await this.loadApiValues("colours/");
-  this.stages = await this.loadApiValues("stages/");
 
   this.element.removeChild(loadingDiv);
 
@@ -65,7 +52,7 @@ const Filter = {
   this.seriesSelectElement.className = "series";
   this.seriesSelectElement.setAttribute("multiple", "");
 
-  this.series.forEach((s) => {
+  this.cardsRepository.series.forEach((s) => {
    let optionElement = document.createElement("option");
    optionElement.text = s.name;
    optionElement.value = s.name;
@@ -91,7 +78,7 @@ const Filter = {
 
   this.typesSelectElement = document.createElement("select");
   this.typesSelectElement.setAttribute("multiple", "");
-  this.types.forEach((t) => {
+  this.cardsRepository.types.forEach((t) => {
    var optionElement = document.createElement("option");
    optionElement.text = t;
    optionElement.value = t;
@@ -108,7 +95,7 @@ const Filter = {
 
   this.coloursSelectElement = document.createElement("select");
   this.coloursSelectElement.setAttribute("multiple", "");
-  this.colours.forEach((t) => {
+  this.cardsRepository.colours.forEach((t) => {
    var optionElement = document.createElement("option");
    optionElement.text = t;
    optionElement.value = t;
@@ -126,7 +113,7 @@ const Filter = {
   this.stagesSelectElement = document.createElement("select");
   this.stagesSelectElement.setAttribute("multiple", "");
   let stagesElement = document.getElementsByClassName("stages")[0];
-  this.stages.forEach((t) => {
+  this.cardsRepository.stages.forEach((t) => {
    var optionElement = document.createElement("option");
    optionElement.text = t;
    optionElement.value = t;
@@ -202,27 +189,25 @@ const Filter = {
   let typesFilter = this.getMultipleSelectedValues(this.typesSelectElement);
   let coloursFilter = this.getMultipleSelectedValues(this.coloursSelectElement);
   let stagesFilter = this.getMultipleSelectedValues(this.stagesSelectElement);
-  cards = await this.loadApiValues(
-   encodeURI(
-    `cards/?name=${encodeURIComponent(this.nameInputElement.value)}${this.generateMultipleSelectFilterQueryParam("series", seriesFilter)}${this.generateMultipleSelectFilterQueryParam("sets", setsFilter)}${this.generateMultipleSelectFilterQueryParam("types", typesFilter)}${this.generateMultipleSelectFilterQueryParam("colours", coloursFilter)}${this.generateMultipleSelectFilterQueryParam("stages", stagesFilter)}`,
-   ),
+  this.cards = this.cardsRepository.filterCards(
+   this.nameInputElement.value,
+   seriesFilter,
+   setsFilter,
+   typesFilter,
+   coloursFilter,
+   stagesFilter,
   );
   this.drawCards();
- },
-
- generateMultipleSelectFilterQueryParam(queryStringName, select) {
-  return select.length
-   ? `&${queryStringName}=${encodeURIComponent(select.join(","))}`
-   : "";
  },
 
  drawCards() {
   let cardLibrary = document.getElementById("card-library");
   cardLibrary.innerHTML = "";
 
-  cards.forEach((c) => {
+  this.cards.forEach((c) => {
    var img = document.createElement("img");
-   img.src = `${this.apiUrl}resources/${c.imageSrc}`;
+   console.log(c.imageSrc);
+   img.src = this.cardsRepository.resource(c.imageSrc);
    img.addEventListener("click", (e) => {
     this.deckBuilder.addCard(c);
    });
