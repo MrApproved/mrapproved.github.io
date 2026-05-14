@@ -8,6 +8,7 @@ const DeckBuilder = {
  uploadElement: HTMLElement,
  fileUploadElement: HTMLElement,
  sliderElement: HTMLElement,
+ expanderElement: HTMLElement,
  deckSegment: Number,
  totalCards: Number,
  cardsRepository: CardsRepository,
@@ -85,7 +86,9 @@ const DeckBuilder = {
   this.sliderElement = document.createElement("div");
   this.sliderElement.id = "slider";
   this.sliderElement.className = "expanded";
-  this.sliderElement.innerHTML = `<svg class="shrink" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  this.expanderElement = document.createElement("div");
+  this.expanderElement.className = "expander";
+  this.expanderElement.innerHTML = `<svg class="shrink" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd"
         d="M1.625 12C1.625 12.4142 1.96079 12.75 2.375 12.75L13.3476 12.75L11.3869 14.4306C11.0724 14.7001 11.036 15.1736 11.3056 15.4881C11.5751 15.8026 12.0486 15.839 12.3631 15.5694L15.8631 12.5694C16.0293 12.427 16.125 12.2189 16.125 12C16.125 11.7811 16.0293 11.573 15.8631 11.4306L12.3631 8.43056C12.0486 8.16099 11.5751 8.19741 11.3056 8.51191C11.036 8.8264 11.0724 9.29988 11.3869 9.56944L13.3476 11.25L2.375 11.25C1.96079 11.25 1.625 11.5858 1.625 12Z"
         fill="currentColor" />
@@ -101,6 +104,7 @@ const DeckBuilder = {
         d="M9.375 8C9.375 8.70219 9.375 9.05329 9.54351 9.3055C9.61648 9.41471 9.71025 9.50848 9.81946 9.58145C10.0717 9.74996 10.4228 9.74996 11.125 9.74996L15.375 9.74996C16.6176 9.74996 17.625 10.7573 17.625 12C17.625 13.2426 16.6176 14.25 15.375 14.25L11.125 14.25C10.4228 14.25 10.0716 14.25 9.8194 14.4185C9.71023 14.4915 9.6165 14.5852 9.54355 14.6944C9.375 14.9466 9.375 15.2977 9.375 16C9.375 18.8284 9.375 20.2426 10.2537 21.1213C11.1324 22 12.5464 22 15.3748 22L16.3748 22C19.2032 22 20.6174 22 21.4961 21.1213C22.3748 20.2426 22.3748 18.8284 22.3748 16L22.3748 8C22.3748 5.17158 22.3748 3.75736 21.4961 2.87868C20.6174 2 19.2032 2 16.3748 2L15.3748 2C12.5464 2 11.1324 2 10.2537 2.87868C9.375 3.75736 9.375 5.17157 9.375 8Z"
         fill="currentColor" />
 </svg>`;
+this.sliderElement.appendChild(this.expanderElement);
 
   this.titleElement.addEventListener("change", (e) => {
    this.deck.name = e.target.value;

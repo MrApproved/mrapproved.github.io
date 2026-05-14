@@ -4,8 +4,8 @@
  border-radius: 9px;
  width: 300px;
  position: fixed;
- right: -290px;
- height: 90%;
+ right: -312px;
+ height: 80%;
  top: 5%;
  bottom: 5%;
  transition: all 0.2s;
@@ -78,15 +78,25 @@
 
 #deck #slider {
  cursor: pointer;
- position: relative;
- top: 9px;
- left: -30px;
- width: 30px;
- height: 30px;
+ position: absolute;
+ top: 5%;
+ left: -42px;
+ width: 36px;
+ height: 90%;
  background-color: #ce4b4b;
  border: solid 3px #333;
  border-radius: 9px;
  z-index: 1;
+ display: table;
+}
+
+#deck #slider .expander {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+#deck #slider .expander svg {
+ scale: 1 5;
 }
 
 #deck .menu {
@@ -160,64 +170,4 @@
 #deck.maximised #cards .card-container img {
  width: 100%;
  position: initial;
-}
-
-#statistics {
- transition: all 0.2s;
- position: fixed;
- bottom: -50px;
- left: 15px;
- padding: 6px;
- background-color: #ce4b4b;
- border: solid 3px #333;
- border-radius: 9px;
- max-width: 90vw;
-}
-
-#statistics.expanded {
- bottom: 0;
-}
-
-#statistics .expand {
- display: initial;
-}
-
-#statistics.expanded .expand {
- display: none;
-}
-
-#statistics .shrink {
- display: none;
-}
-
-#statistics.expanded .shrink {
- display: initial;
-}
-
-#statistics h1 {
- font-size: 12pt;
- margin: 3px 0;
-}
-
-#statistics ul {
- padding: 0;
- margin: 0;
- white-space: nowrap;
- overflow-x: auto;
-}
-
-#statistics li {
- display: inline;
-}
-
-#statistics .toggle {
- cursor: pointer;
- width: 32px;
- height: 32px;
- position: absolute;
- left: 8px;
- top: -32px;
- background-color: #ce4b4b;
- border: solid 3px #333;
- border-radius: 9px;
 }

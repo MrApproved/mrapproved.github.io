@@ -1,8 +1,8 @@
 #card-search-container {
  position: fixed;
- left: -315px;
+ left: -415px;
  top: 5%;
- width: 300px;
+ width: 400px;
  border: solid 3px #333;
  border-radius: 9px;
  padding: 3px;
@@ -22,9 +22,14 @@
  padding: 3px;
 }
 
+#card-search-container #card-search input::placeholder  {
+    color: #AAA;
+}
+
 #card-search-container select {
  border: solid 3px #333;
  border-radius: 9px;
+ font-size: 16px;
 }
 
 #card-search-container .series {
@@ -32,11 +37,12 @@
 }
 
 #card-search-container select option {
- padding: 3px;
+ padding: 6px;
+ padding-left: 12px;
 }
 
 #card-search-container select option.set {
- padding-left: 9px;
+ padding-left: 24px;
 }
 
 #card-search-container option:checked {
@@ -58,7 +64,7 @@
  left: 100%;
  top: 5%;
  height: 90%;
- width: 24px;
+ width: 36px;
  text-decoration: unset;
  display: table;
 }
@@ -87,4 +93,11 @@
 #card-search-container select {
  display: block;
  width: 100%;
+}
+
+#card-search-container button {
+    background-color: #FFF;
+    color: #d90429;
+    width: 100%;
+    height: 48px;
 }
