@@ -20,16 +20,18 @@ const DeckBuilder = {
   this.deckElement.id = "deck";
   this.deckElement.className = "expanded";
   this.titleElement = document.createElement("input");
-  this.titleElement.value = "Untitled Deck";
+  this.titleElement.placeholder = "Untitled Deck";
   this.buttonMenuElement = document.createElement("div");
   this.buttonMenuElement.className = "menu";
   this.maximiseElement = document.createElement("div");
   this.maximiseElement.id = "maximise";
+  this.maximiseElement.title = "Maximise";
   this.maximiseElement.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15 9L21 3M21 3H15M21 3V9M9 9L3 3M3 3L3 9M3 3L9 3M9 15L3 21M3 21H9M3 21L3 15M15 15L21 21M21 21V15M21 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
   this.downloadElement = document.createElement("div");
   this.downloadElement.id = "download";
+  this.downloadElement.title = "Download";
   this.downloadElement.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12ZM12 6.25C12.4142 6.25 12.75 6.58579 12.75 7V12.1893L14.4697 10.4697C14.7626 10.1768 15.2374 10.1768 15.5303 10.4697C15.8232 10.7626 15.8232 11.2374 15.5303 11.5303L12.5303 14.5303C12.3897 14.671 12.1989 14.75 12 14.75C11.8011 14.75 11.6103 14.671 11.4697 14.5303L8.46967 11.5303C8.17678 11.2374 8.17678 10.7626 8.46967 10.4697C8.76256 10.1768 9.23744 10.1768 9.53033 10.4697L11.25 12.1893V7C11.25 6.58579 11.5858 6.25 12 6.25ZM8 16.25C7.58579 16.25 7.25 16.5858 7.25 17C7.25 17.4142 7.58579 17.75 8 17.75H16C16.4142 17.75 16.75 17.4142 16.75 17C16.75 16.5858 16.4142 16.25 16 16.25H8Z" fill="currentColor"/>
 </svg>`;
@@ -55,15 +57,14 @@ const DeckBuilder = {
   this.fileUploadElement = document.createElement("input");
   this.fileUploadElement.id = "file";
   this.fileUploadElement.setAttribute("type", "file");
-  // <input type="file" id="file" value="Import" /><br />
   this.uploadElement = document.createElement("div");
   this.uploadElement.id = "upload";
+  this.uploadElement.title = "Upload";
   this.uploadElement.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12ZM12 17.75C12.4142 17.75 12.75 17.4142 12.75 17V11.8107L14.4697 13.5303C14.7626 13.8232 15.2374 13.8232 15.5303 13.5303C15.8232 13.2374 15.8232 12.7626 15.5303 12.4697L12.5303 9.46967C12.3897 9.32902 12.1989 9.25 12 9.25C11.8011 9.25 11.6103 9.32902 11.4697 9.46967L8.46967 12.4697C8.17678 12.7626 8.17678 13.2374 8.46967 13.5303C8.76256 13.8232 9.23744 13.8232 9.53033 13.5303L11.25 11.8107V17C11.25 17.4142 11.5858 17.75 12 17.75ZM8 7.75C7.58579 7.75 7.25 7.41421 7.25 7C7.25 6.58579 7.58579 6.25 8 6.25H16C16.4142 6.25 16.75 6.58579 16.75 7C16.75 7.41421 16.4142 7.75 16 7.75H8Z" fill="currentColor"/>
 </svg>`;
   this.fileUploadElement.addEventListener("change", (x) => {
    var files = document.getElementById("file").files;
-   console.log(files);
    if (files.length <= 0) {
     return false;
    }
@@ -77,6 +78,7 @@ const DeckBuilder = {
    fr.readAsText(files.item(0));
   });
   this.uploadElement.onclick = function () {
+   document.getElementById("file").value = null;
    document.getElementById("file").click();
   };
   this.buttonMenuElement.appendChild(this.uploadElement);
@@ -104,7 +106,7 @@ const DeckBuilder = {
         d="M9.375 8C9.375 8.70219 9.375 9.05329 9.54351 9.3055C9.61648 9.41471 9.71025 9.50848 9.81946 9.58145C10.0717 9.74996 10.4228 9.74996 11.125 9.74996L15.375 9.74996C16.6176 9.74996 17.625 10.7573 17.625 12C17.625 13.2426 16.6176 14.25 15.375 14.25L11.125 14.25C10.4228 14.25 10.0716 14.25 9.8194 14.4185C9.71023 14.4915 9.6165 14.5852 9.54355 14.6944C9.375 14.9466 9.375 15.2977 9.375 16C9.375 18.8284 9.375 20.2426 10.2537 21.1213C11.1324 22 12.5464 22 15.3748 22L16.3748 22C19.2032 22 20.6174 22 21.4961 21.1213C22.3748 20.2426 22.3748 18.8284 22.3748 16L22.3748 8C22.3748 5.17158 22.3748 3.75736 21.4961 2.87868C20.6174 2 19.2032 2 16.3748 2L15.3748 2C12.5464 2 11.1324 2 10.2537 2.87868C9.375 3.75736 9.375 5.17157 9.375 8Z"
         fill="currentColor" />
 </svg>`;
-this.sliderElement.appendChild(this.expanderElement);
+  this.sliderElement.appendChild(this.expanderElement);
 
   this.titleElement.addEventListener("change", (e) => {
    this.deck.name = e.target.value;
@@ -119,9 +121,13 @@ this.sliderElement.appendChild(this.expanderElement);
   });
 
   this.maximiseElement.addEventListener("click", (e) => {
-   if (this.deckElement.className === "maximised")
+   if (this.deckElement.className === "maximised") {
     this.deckElement.className = "expanded";
-   else this.deckElement.className = "maximised";
+    this.maximiseElement.title = "Maximise";
+   } else {
+    this.deckElement.className = "maximised";
+    this.maximiseElement.title = "Minimise";
+   }
   });
 
   this.cardsElement = document.createElement("div");

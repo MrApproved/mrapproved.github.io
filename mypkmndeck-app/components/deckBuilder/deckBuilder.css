@@ -34,24 +34,23 @@
 
 #deck input {
  all: unset;
- position: absolute;
  height: 30px;
  font-size: 24px;
  margin: 0 0 0 9px;
  border-bottom: solid 1px #d2d2d2;
- width: calc(100% - 105px);
+ width: calc(100% - 18px);
 }
 
 #deck #cards {
  overflow-y: scroll;
  width: 300px;
- height: calc(100% - 30px);
+ height: calc(100% - (50px + 31px));
  top: 0;
  position: relative;
 }
 
 #deck .card-container {
- width: inherit;
+ width: 100%;
  position: relative;
 }
 
@@ -91,8 +90,8 @@
 }
 
 #deck #slider .expander {
-    vertical-align: middle;
-    display: table-cell;
+ vertical-align: middle;
+ display: table-cell;
 }
 
 #deck #slider .expander svg {
@@ -100,8 +99,8 @@
 }
 
 #deck .menu {
- width: 96px;
- height: 32px;
+ width: 150px;
+ height: 50px;
  display: table;
  float: right;
 }
@@ -149,7 +148,6 @@
   grid-template-columns: repeat(2, 1fr);
  }
 }
-
 
 @media (min-width: 700px) {
  #deck.maximised #cards {

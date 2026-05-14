@@ -128,6 +128,7 @@ const Filter = {
   this.searchElement.className = "primary";
   this.searchElement.setAttribute("type", "submit");
   this.searchElement.innerText = "Search";
+  this.searchElement.title = "Search";
 
   this.formElement.appendChild(this.nameElement);
   this.formElement.appendChild(this.seriesElement);
@@ -206,7 +207,6 @@ const Filter = {
 
   this.cards.forEach((c) => {
    var img = document.createElement("img");
-   console.log(c.imageSrc);
    img.src = this.cardsRepository.resource(c.imageSrc);
    img.addEventListener("click", (e) => {
     this.deckBuilder.addCard(c);

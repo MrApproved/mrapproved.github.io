@@ -24,6 +24,10 @@ input {
  width: 100%;
 }
 
+input::placeholder {
+ color: #aaa;
+}
+
 button {
  min-width: 75px;
  height: 24px;
@@ -46,6 +50,14 @@ button:hover {
 
 button:active {
  top: 1px;
+}
+
+a {
+ color: #ef233c;
+}
+
+a:hover {
+ color: #fff;
 }
 
 .noselect {
@@ -88,7 +100,6 @@ select.series option.set {
   grid-template-columns: repeat(2, 1fr);
  }
 }
-
 
 @media (min-width: 700px) {
  #card-library {

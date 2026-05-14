@@ -1,13 +1,14 @@
 #statistics {
  transition: all 0.2s;
  position: fixed;
- bottom: -50px;
+ bottom: -60px;
  left: 5%;
  padding: 6px;
  background-color: #ce4b4b;
  border: solid 3px #333;
  border-radius: 9px;
  width: 90%;
+ height: 42px;
 }
 
 #statistics.expanded {
@@ -59,9 +60,9 @@
  display: initial;
 }
 
-#statistics.expanded .shrink svg {
-    display: block;
-    scale: 5 1;
-    width: 32px;
-    margin: auto;
+#statistics .toggle svg {
+ display: block;
+ scale: 5 1;
+ width: 32px;
+ margin: auto;
 }

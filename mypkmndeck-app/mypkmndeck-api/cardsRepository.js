@@ -315,10 +315,10 @@ const CardsRepository = {
  },
  filterCards(name, series, sets, types, colours, stages) {
   var filteredCards = this.cards;
-  name !== undefined
-   ? filteredCards.filter((c) =>
+  name.length > 0
+   ? (filteredCards = filteredCards.filter((c) =>
       c.name?.toLowerCase().includes(name.toLowerCase()),
-     )
+     ))
    : filteredCards;
 
   if (series.length > 0 || sets.length > 0) {
