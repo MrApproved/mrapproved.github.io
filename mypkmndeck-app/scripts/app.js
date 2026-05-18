@@ -25,7 +25,7 @@ popup.render(
         <li><a href="https://github.com/MrApproved/mypkmndeck_scrapper" target="_blank">Scrapper Repository</a></li>
         <li><a href="https://github.com/MrApproved/mypkmndeck_api" target="_blank">Express WebApi Repository</a></li>
         <li><a href="https://github.com/MrApproved/mrapproved.github.io/tree/master/mypkmndeck-app" target="_blank">Application Repository</a></li>
-        <li><a href="https://medium.com/p/8a650f942663/edit" target="_blank">Blog Post</a></li>
+        <li><a href="https://canvascodebw.medium.com/my-pok%C3%A9mon-deck-builder-a-js-application-i-built-for-fun-8a650f942663" target="_blank">Blog Post</a></li>
         <li><a href="https://pkmncards.com/" target="_blank">pkmncard.com</a></li>
         <li>Create by Ben Watts - <a href="https://www.linkedin.com/in/ben-watts-66960478/" target="_blank">LinkedIn</a></li>
     </ul>
